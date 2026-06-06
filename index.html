@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-club="santos" data-version="1.0.0">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A0A0A" />
+
+  <!-- Primary Meta -->
+  <title>Constata Santos</title>
+  <meta name="description" content="Constata Santos — monitoramento, contextualização e análise de informações sobre o Santos FC." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://constata.santos/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Constata Santos" />
+  <meta property="og:title"       content="Constata Santos" />
+  <meta property="og:description" content="Monitoramento, contextualização e análise de informações sobre o Santos FC." />
+  <meta property="og:image"       content="assets/og-image.jpg" />
+  <meta property="og:url"         content="https://constata.santos/" />
+  <meta property="og:locale"      content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Constata Santos" />
+  <meta name="twitter:description" content="Monitoramento, contextualização e análise de informações sobre o Santos FC." />
+  <meta name="twitter:image"       content="assets/og-image.jpg" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+  <!-- Fonts — Editorial serif + geometric sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SKIP NAVIGATION — accessibility
+  ════════════════════════════════════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HEADER — fixed, populated by app.js via CLUB_CONFIG
+  ════════════════════════════════════════════════════════════════════════ -->
+  <header id="site-header" class="site-header" role="banner">
+    <div class="header-inner">
+
+      <!-- Wordmark / Logo -->
+      <a href="/" class="site-logo" aria-label="Constata Santos — página inicial" id="site-logo-link">
+        <!-- app.js will inject an <img> if logoUrl is set, or render the text fallback -->
+        <span class="logo-wordmark">
+          <span class="logo-constata">Constata</span>
+          <span class="logo-club" id="logo-club-name">Santos</span>
+        </span>
+      </a>
+
+      <!-- Search -->
+      <div class="header-search" role="search">
+        <label for="search-input" class="sr-only">Buscar notícias</label>
+        <div class="search-field">
+          <svg class="search-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Buscar notícias..."
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Buscar notícias"
+          />
+          <button
+            type="button"
+            id="search-clear"
+            class="search-clear"
+            aria-label="Limpar busca"
+            hidden
+          >
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Status bar: last update + live indicator -->
+      <div class="header-status" aria-live="polite" aria-atomic="true">
+        <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+        <span class="status-label" id="last-updated-label">Carregando…</span>
+      </div>
+
+    </div><!-- /.header-inner -->
+
+    <!-- Search results overlay — rendered by app.js, hidden by default -->
+    <div
+      id="search-overlay"
+      class="search-overlay"
+      role="listbox"
+      aria-label="Resultados da busca"
+      hidden
+    ></div>
+
+  </header><!-- /#site-header -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════════════════════════════════ -->
+  <main id="main-content" class="site-main">
+
+
+    <!-- ── FEATURED STORY ──────────────────────────────────────────────────
+         Populated by app.js when a news item has featured: true.
+         Hidden by app.js if feature flag featuredStory is false.
+    ─────────────────────────────────────────────────────────────────────── -->
+    <section
+      id="featured-section"
+      class="section section--featured"
+      aria-label="Destaque principal"
+      data-feature="featuredStory"
+    >
+      <div class="section-inner">
+
+        <article id="featured-article" class="featured-article" aria-busy="true">
+
+          <div class="featured-image-wrap">
+            <img
+              id="featured-image"
+              class="featured-image"
+              src=""
+              alt=""
+              loading="eager"
+              decoding="async"
+            />
+            <div class="featured-image-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="featured-body">
+            <div class="featured-meta">
+              <span class="featured-eyebrow" id="featured-category"></span>
+              <span class="featured-source" id="featured-source"></span>
+            </div>
+            <h1 class="featured-title" id="featured-title">
+              <!-- Populated by app.js -->
+            </h1>
+            <p class="featured-summary" id="featured-summary">
+              <!-- Populated by app.js -->
+            </p>
+            <div class="featured-actions">
+              <button
+                type="button"
+                class="btn btn--primary"
+                id="featured-read-btn"
+                aria-label="Ler matéria em destaque"
+                data-article-id=""
+              >
+                Ler matéria
+              </button>
+              <time class="featured-date" id="featured-date" datetime=""></time>
+            </div>
+          </div>
+
+        </article><!-- /#featured-article -->
+
+      </div><!-- /.section-inner -->
+    </section><!-- /#featured-section -->
+
+
+    <!-- ── NEXT MATCH ──────────────────────────────────────────────────────
+         Placeholder. Feature flag nextMatch = false renders this as
+         a "coming soon" state. app.js will populate when data is available.
+    ─────────────────────────────────────────────────────────────────────── -->
+    <section
+      id="next-match-section"
+      class="section section--next-match"
+      aria-label="Próximo jogo"
+      data-feature="nextMatch"
+      hidden
+    >
+      <div class="section-inner">
+
+        <header class="section-header">
+          <h2 class="section-title">Próximo Jogo</h2>
+        </header>
+
+        <div id="next-match-card" class="next-match-card" aria-busy="true">
+
+          <div class="match-team match-team--home">
+            <img class="team-crest" id="match-home-crest" src="" alt="" loading="lazy" />
+            <span class="team-name" id="match-home-name"></span>
+          </div>
+
+          <div class="match-center">
+            <time class="match-date" id="match-date" datetime=""></time>
+            <span class="match-competition" id="match-competition"></span>
+            <span class="match-venue" id="match-venue"></span>
+          </div>
+
+          <div class="match-team match-team--away">
+            <img class="team-crest" id="match-away-crest" src="" alt="" loading="lazy" />
+            <span class="team-name" id="match-away-name"></span>
+          </div>
+
+        </div><!-- /#next-match-card -->
+
+        <!-- Placeholder state when data unavailable -->
+        <div id="next-match-placeholder" class="feature-placeholder" hidden>
+          <span class="placeholder-label">Dados de jogos em breve</span>
+        </div>
+
+      </div><!-- /.section-inner -->
+    </section><!-- /#next-match-section -->
+
+
+    <!-- ── NEWS FEED ───────────────────────────────────────────────────────
+         Category filters + scrollable card grid.
+         Cards populated by app.js from noticias.json.
+    ─────────────────────────────────────────────────────────────────────── -->
+    <section
+      id="news-section"
+      class="section section--news"
+      aria-label="Feed de notícias"
+      data-feature="categories"
+    >
+      <div class="section-inner">
+
+        <!-- Section header -->
+        <header class="section-header">
+          <h2 class="section-title">Notícias</h2>
+          <span class="section-count" id="news-count" aria-live="polite" aria-atomic="true"></span>
+        </header>
+
+        <!-- Category filter bar — tabs populated by app.js from CLUB_CONFIG.categories -->
+        <nav
+          id="category-nav"
+          class="category-nav"
+          aria-label="Filtrar por categoria"
+          role="tablist"
+        >
+          <!-- app.js renders <button role="tab"> elements here -->
+        </nav>
+
+        <!-- Active search query banner (shown during search) -->
+        <div id="search-banner" class="search-banner" hidden aria-live="polite">
+          <span class="search-banner-query">
+            Resultados para <strong id="search-query-label"></strong>
+          </span>
+          <button type="button" class="search-banner-clear" id="search-banner-clear">
+            Limpar
+          </button>
+        </div>
+
+        <!-- News grid — cards injected by app.js -->
+        <div
+          id="news-grid"
+          class="news-grid"
+          role="list"
+          aria-label="Artigos"
+          aria-busy="true"
+          aria-live="polite"
+        >
+          <!-- Loading skeleton — shown before first fetch completes -->
+          <div class="skeleton-card" aria-hidden="true" role="presentation">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line skeleton-line--short"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line skeleton-line--medium"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true" role="presentation">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line skeleton-line--short"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line skeleton-line--medium"></div>
+            </div>
+          </div>
+          <div class="skeleton-card" aria-hidden="true" role="presentation">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line skeleton-line--short"></div>
+              <div class="skeleton-line"></div>
+              <div class="skeleton-line skeleton-line--medium"></div>
+            </div>
+          </div>
+        </div><!-- /#news-grid -->
+
+        <!-- Empty state — shown by app.js when no results match filter/search -->
+        <div id="news-empty" class="news-empty" hidden>
+          <p class="news-empty-message" id="news-empty-message">
+            Nenhuma notícia encontrada.
+          </p>
+        </div>
+
+        <!-- Error state — shown by app.js on fetch failure -->
+        <div id="news-error" class="news-error" hidden role="alert">
+          <p class="news-error-message">
+            Não foi possível carregar as notícias. Tente novamente em alguns instantes.
+          </p>
+          <button type="button" class="btn btn--ghost" id="news-retry-btn">
+            Tentar novamente
+          </button>
+        </div>
+
+      </div><!-- /.section-inner -->
+    </section><!-- /#news-section -->
+
+
+    <!-- ── FUTURE SECTIONS (placeholders) ─────────────────────────────────
+         Rendered as "coming soon" cards by app.js when feature flag is false.
+         These section containers must remain in the DOM for layout stability.
+    ─────────────────────────────────────────────────────────────────────── -->
+
+    <!-- Analysis -->
+    <section
+      id="analysis-section"
+      class="section section--placeholder"
+      aria-label="Análise"
+      data-feature="analysis"
+      hidden
+    >
+      <div class="section-inner">
+        <div class="feature-placeholder">
+          <div class="placeholder-icon" aria-hidden="true">◈</div>
+          <h2 class="placeholder-title">Análise</h2>
+          <p class="placeholder-description">Aprofundamento e contextualização em breve.</p>
+          <span class="placeholder-badge">Em desenvolvimento</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Indicators -->
+    <section
+      id="indicators-section"
+      class="section section--placeholder"
+      aria-label="Indicadores"
+      data-feature="indicators"
+      hidden
+    >
+      <div class="section-inner">
+        <div class="feature-placeholder">
+          <div class="placeholder-icon" aria-hidden="true">◎</div>
+          <h2 class="placeholder-title">Indicadores</h2>
+          <p class="placeholder-description">Governança, risco financeiro e confirmação de informações.</p>
+          <span class="placeholder-badge">Em desenvolvimento</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section
+      id="timeline-section"
+      class="section section--placeholder"
+      aria-label="Linha do tempo"
+      data-feature="timeline"
+      hidden
+    >
+      <div class="section-inner">
+        <div class="feature-placeholder">
+          <div class="placeholder-icon" aria-hidden="true">◌</div>
+          <h2 class="placeholder-title">Linha do Tempo</h2>
+          <p class="placeholder-description">Histórico e evolução dos temas em acompanhamento.</p>
+          <span class="placeholder-badge">Em desenvolvimento</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Premium Content -->
+    <section
+      id="premium-section"
+      class="section section--placeholder"
+      aria-label="Conteúdo premium"
+      data-feature="premiumContent"
+      hidden
+    >
+      <div class="section-inner">
+        <div class="feature-placeholder feature-placeholder--premium">
+          <div class="placeholder-icon" aria-hidden="true">◆</div>
+          <h2 class="placeholder-title">Conteúdo Premium</h2>
+          <p class="placeholder-description">Investigações exclusivas e análises aprofundadas para assinantes.</p>
+          <span class="placeholder-badge placeholder-badge--premium">Em breve</span>
+        </div>
+      </div>
+    </section>
+
+
+  </main><!-- /#main-content -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       ARTICLE MODAL
+       Opened by app.js when user clicks any news card or featured button.
+       Closes on backdrop click, Escape key, or close button.
+  ════════════════════════════════════════════════════════════════════════ -->
+  <div
+    id="modal-backdrop"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-describedby="modal-summary"
+    hidden
+  >
+    <div class="modal-container" id="modal-container">
+
+      <!-- Modal Header -->
+      <header class="modal-header">
+        <div class="modal-meta">
+          <span class="modal-category" id="modal-category"></span>
+          <span class="modal-source" id="modal-source"></span>
+        </div>
+        <button
+          type="button"
+          class="modal-close"
+          id="modal-close"
+          aria-label="Fechar artigo"
+        >
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Modal Body — scrollable -->
+      <div class="modal-body" id="modal-body">
+
+        <div class="modal-image-wrap">
+          <img
+            id="modal-image"
+            class="modal-image"
+            src=""
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="modal-image-credit" id="modal-image-credit"></span>
+        </div>
+
+        <div class="modal-content">
+
+          <h2 class="modal-title" id="modal-title"></h2>
+          <p class="modal-summary" id="modal-summary"></p>
+
+          <div class="modal-byline">
+            <time class="modal-date" id="modal-date" datetime=""></time>
+            <span class="modal-author" id="modal-author"></span>
+          </div>
+
+          <div class="modal-article-body" id="modal-article-body">
+            <!-- Full article content rendered by app.js -->
+          </div>
+
+          <!-- Future placeholder sections inside modal -->
+          <aside class="modal-future-sections" aria-label="Funcionalidades futuras">
+
+            <div class="modal-placeholder-row" data-feature="indicators">
+              <div class="modal-placeholder-block" aria-hidden="true">
+                <span class="modal-placeholder-icon">◎</span>
+                <span class="modal-placeholder-label">Indicadores</span>
+                <span class="modal-placeholder-badge">Em breve</span>
+              </div>
+            </div>
+
+            <div class="modal-placeholder-row" data-feature="timeline">
+              <div class="modal-placeholder-block" aria-hidden="true">
+                <span class="modal-placeholder-icon">◌</span>
+                <span class="modal-placeholder-label">Linha do Tempo</span>
+                <span class="modal-placeholder-badge">Em breve</span>
+              </div>
+            </div>
+
+            <div class="modal-placeholder-row" data-feature="analysis">
+              <div class="modal-placeholder-block" aria-hidden="true">
+                <span class="modal-placeholder-icon">◈</span>
+                <span class="modal-placeholder-label">Análise</span>
+                <span class="modal-placeholder-badge">Em breve</span>
+              </div>
+            </div>
+
+          </aside><!-- /.modal-future-sections -->
+
+        </div><!-- /.modal-content -->
+
+      </div><!-- /#modal-body -->
+
+      <!-- Modal Footer -->
+      <footer class="modal-footer">
+        <a
+          href="#"
+          id="modal-source-link"
+          class="modal-source-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Ler matéria completa na fonte original"
+        >
+          Ler na fonte original
+          <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+        <div class="modal-tags" id="modal-tags">
+          <!-- Tags injected by app.js -->
+        </div>
+      </footer><!-- /.modal-footer -->
+
+    </div><!-- /#modal-container -->
+  </div><!-- /#modal-backdrop -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════════════════════ -->
+  <footer id="site-footer" class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="footer-wordmark">
+          <span class="logo-constata">Constata</span>
+          <span class="logo-club" id="footer-club-name">Santos</span>
+        </span>
+        <p class="footer-tagline" id="footer-tagline">
+          Informação. Contexto. Santos FC.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Links do rodapé">
+        <a href="#" class="footer-link">Sobre</a>
+        <a href="#" class="footer-link">Metodologia</a>
+        <a href="#" class="footer-link">Fontes</a>
+        <a href="#" class="footer-link">Contato</a>
+      </nav>
+
+      <div class="footer-meta">
+        <span class="footer-platform">
+          Construído com <a href="#" class="footer-link footer-link--accent">Constata Press</a>
+        </span>
+        <span class="footer-version" id="footer-version">v1.0.0</span>
+      </div>
+
+    </div><!-- /.footer-inner -->
+  </footer><!-- /#site-footer -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCRIPTS — deferred, order matters
+       1. club-config.js  — must load before app.js
+       2. app.js          — reads config, fetches data, renders everything
+  ════════════════════════════════════════════════════════════════════════ -->
+  <script src="club-config.js" defer></script>
+  <script src="app.js" defer></script>
+
+</body>
+</html>
