@@ -33,6 +33,8 @@ const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 // ---------------------------------------------------------------------------
 const MAX_ARTICLES  = 30;    // cap stored in noticias.json
 const FETCH_TIMEOUT = 10000; // ms per feed request
+const BOT_AGENT     = 'ConstataPressBot/1.0';
+const BROWSER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36';
 
 
 // =============================================================================
@@ -111,7 +113,7 @@ async function dispatchSource(source) {
 async function fetchRSS(source) {
   const parser = new RSSParser({
     timeout: FETCH_TIMEOUT,
-    headers: { 'User-Agent': 'ConstataPressBot/1.0' },
+    headers: { 'User-Agent': BOT_AGENT },
   });
   const feed = await parser.parseURL(source.url);
 
@@ -265,7 +267,7 @@ function fetchOgImage(url) {
     const lib     = url.startsWith('https') ? https : http;
     const timeout = setTimeout(() => resolve(''), 8000);
 
-    const req = lib.get(url, { headers: { 'User-Agent': 'ConstataPressBot/1.0' } }, res => {
+    const req = lib.get(url, { headers: { 'User-Agent': BROWSER_AGENT } }, res => {
       // Follow one redirect
       if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
         clearTimeout(timeout);
