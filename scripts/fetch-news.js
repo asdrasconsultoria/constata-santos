@@ -16,6 +16,8 @@
 import fs                from 'fs/promises';
 import path              from 'path';
 import { fileURLToPath } from 'url';
+import https             from 'https';
+import http              from 'http';
 import RSSParser         from 'rss-parser';
 
 import { CLUB_META, KEYWORDS, SOURCES } from './rss-sources.js';
@@ -112,7 +114,20 @@ async function fetchRSS(source) {
     headers: { 'User-Agent': 'ConstataPressBot/1.0' },
   });
   const feed = await parser.parseURL(source.url);
-  return feed.items.map(item => normaliseArticle(item, source));
+
+  // Normalise all items, then enrich images in parallel
+  const articles = feed.items.map(item => normaliseArticle(item, source));
+
+  const enriched = await Promise.allSettled(
+    articles.map(async article => {
+      if (article.imageUrl) return article;
+      // Feed provided no image — try og:image from the article page
+      const ogImage = await fetchOgImage(article.sourceUrl);
+      return { ...article, imageUrl: proxyImage(ogImage) };
+    })
+  );
+
+  return enriched.map((r, i) => r.status === 'fulfilled' ? r.value : articles[i]);
 }
 
 
@@ -239,6 +254,42 @@ function extractImage(item) {
   if (item.enclosure?.url) return item.enclosure.url;
 
   return '';
+}
+
+// Fetches the article page and extracts the og:image meta tag.
+// Used as fallback when the RSS feed provides no image.
+function fetchOgImage(url) {
+  return new Promise(resolve => {
+    if (!url) return resolve('');
+
+    const lib     = url.startsWith('https') ? https : http;
+    const timeout = setTimeout(() => resolve(''), 8000);
+
+    const req = lib.get(url, { headers: { 'User-Agent': 'ConstataPressBot/1.0' } }, res => {
+      // Follow one redirect
+      if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
+        clearTimeout(timeout);
+        return resolve(fetchOgImage(res.headers.location));
+      }
+
+      let html = '';
+      res.setEncoding('utf8');
+      res.on('data', chunk => {
+        html += chunk;
+        // Stop reading once we have the <head> — og:image is always there
+        if (html.includes('</head>')) req.destroy();
+      });
+      res.on('end', () => {
+        clearTimeout(timeout);
+        const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
+                   ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+        resolve(match ? match[1] : '');
+      });
+      res.on('error', () => { clearTimeout(timeout); resolve(''); });
+    });
+
+    req.on('error', () => { clearTimeout(timeout); resolve(''); });
+  });
 }
 
 function proxyImage(url) {
