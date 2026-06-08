@@ -7,11 +7,69 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 
 const CLUB_META = { id: 'santos', name: 'Constata Santos' };
-const KEYWORDS = ['Santos', 'Peixe', 'Vila Belmiro', 'Santos FC'];
+const KEYWORDS = ['Santos Futebol Clube', 'Meninos da Vila', 'Peixe', 'Presidente Marcelo Teixeira', 'Vila Belmiro', 'Neymar', 'CT Rei Pelé', 'Torcida do Santos', 'Torcida Jovem', 'Time Santista', 'Menino da Vila','Santos FC'];
 const SOURCES = [
-  { id: 'g1-santos', name: 'G1 Santos', url: 'https://g1.globo.com/dynamo/sp/santos-regiao/rss2.xml', category: 'geral', enabled: true },
-  { id: 'gazeta', name: 'Gazeta Esportiva', url: 'https://www.gazetaesportiva.com/feed/', category: 'futebol', enabled: true },
-  { id: 'santos-fc', name: 'Santos FC Oficial', url: 'https://www.santosfc.com.br/feed/', category: 'Institucional', enabled: true },
+  // OFICIAIS (sempre tem imagem)
+  {
+    id: 'santos-oficial',
+    name: 'Santos FC Oficial',
+    url: 'https://www.santosfc.com.br/feed/',
+    category: 'futebol',
+    enabled: true,
+  },
+  {
+    id: 'ge-santos',
+    name: 'ge.globo Santos',
+    url: 'https://ge.globo.com/futebol/times/santos/rss2.xml',
+    category: 'futebol',
+    enabled: true,
+  },
+  
+  // ESPORTIVAS (filtram por Santos)
+  {
+    id: 'gazeta-santos',
+    name: 'Gazeta Esportiva',
+    url: 'https://www.gazetaesportiva.com/times/santos/feed/',
+    category: 'futebol',
+    enabled: true,
+  },
+  {
+    id: 'lance-santos',
+    name: 'LANCE! Santos',
+    url: 'https://www.lance.com.br/rss/santos.xml',
+    category: 'futebol',
+    enabled: true,
+  },
+  {
+    id: 'espn-santos',
+    name: 'ESPN Santos',
+    url: 'https://www.espn.com.br/espn/rss/news',
+    category: 'futebol',
+    enabled: true, // vai filtrar por keyword
+  },
+  {
+    id: 'uol-santos',
+    name: 'UOL Santos',
+    url: 'https://www.uol.com.br/esporte/ultimas/?rss',
+    category: 'futebol',
+    enabled: true,
+  },
+  
+  // BLOGS SANTISTAS
+  {
+    id: 'diario-peixe',
+    name: 'Diário do Peixe',
+    url: 'https://www.diariodopeixe.com.br/feed/',
+    category: 'futebol',
+    enabled: true,
+  },
+  {
+    id: 'meu-peixao',
+    name: 'Meu Peixão',
+    url: 'https://meupeixao.com.br/feed/',
+    category: 'futebol',
+    enabled: false, // teste primeiro
+  },
 ];
 
 const MAX_ARTICLES = 30;
