@@ -124,7 +124,8 @@ async function main() {
   console.log(`  ✓ Concluído em ${((Date.now()-start)/1000).toFixed(1)}s\n`);
 }
 
-function normalise(item, source) {
+function function normalise(item, source) {
+  const img = getImage(item);
   return {
     id: Buffer.from(item.link || item.guid || item.title).toString('base64url').slice(0, 20),
     title: clean(item.title),
@@ -133,9 +134,10 @@ function normalise(item, source) {
     category: source.category,
     source: source.name,
     sourceUrl: item.link || item.guid || '',
-    imageUrl: getImage(item),
+    image: img,           // ← ADICIONE ESTA LINHA
+    imageUrl: img,        // ← já existe
+    imageAlt: clean(item.title), // ← ADICIONE ESTA
     publishedAt: item.isoDate || new Date(item.pubDate).toISOString(),
-    imageAlt: clean(item.title),
     featured: false,
     relevanceScore: 0,
     tags: [],
