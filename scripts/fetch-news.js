@@ -7,161 +7,69 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 
 const CLUB_META = { id: 'santos', name: 'Constata Santos' };
-const KEYWORDS = ['Santos Futebol Clube', 'Meninos da Vila', 'Peixe', 'Vila Belmiro', 'Menino da Vila','Santos FC'];
+const KEYWORDS = ['Santos', 'Peixe', 'Vila Belmiro', 'Alvinegro', 'Santos FC'];
+const MAX_ARTICLES = 40;
+
 const SOURCES = [
-  // OFICIAIS (sempre tem imagem)
-  {
-    id: 'santos-oficial',
-    name: 'Santos FC Oficial',
-    url: 'https://www.santosfc.com.br/feed/',
-    category: 'futebol',
-    enabled: true,
-  },
-  {
-    id: 'ge-santos',
-    name: 'ge.globo Santos',
-    url: 'https://ge.globo.com/futebol/times/santos/rss2.xml',
-    category: 'futebol',
-    enabled: true,
-  },
-  
-  // ESPORTIVAS (filtram por Santos)
-  {
-    id: 'gazeta-santos',
-    name: 'Gazeta Esportiva',
-    url: 'https://www.gazetaesportiva.com/times/santos/feed/',
-    category: 'futebol',
-    enabled: true,
-  },
-  {
-    id: 'lance-santos',
-    name: 'LANCE! Santos',
-    url: 'https://www.lance.com.br/rss/santos.xml',
-    category: 'futebol',
-    enabled: true,
-  },
-  {
-    id: 'espn-santos',
-    name: 'ESPN Santos',
-    url: 'https://www.espn.com.br/espn/rss/news',
-    category: 'futebol',
-    enabled: true, // vai filtrar por keyword
-  },
-  {
-    id: 'uol-santos',
-    name: 'UOL Santos',
-    url: 'https://www.uol.com.br/esporte/ultimas/?rss',
-    category: 'futebol',
-    enabled: true,
-  },
-  
-  // BLOGS SANTISTAS
-  {
-    id: 'diario-peixe',
-    name: 'Diário do Peixe',
-    url: 'https://www.diariodopeixe.com.br/feed/',
-    category: 'futebol',
-    enabled: true,
-  },
-  {
-    id: 'meu-peixao',
-    name: 'Meu Peixão',
-    url: 'https://meupeixao.com.br/feed/',
-    category: 'futebol',
-    enabled: false, // teste primeiro
-  },
+  { id: 'santos-oficial', name: 'Santos FC', url: 'https://www.santosfc.com.br/feed/', category: 'oficial', enabled: true },
+  { id: 'ge-santos', name: 'ge', url: 'https://globoesporte.globo.com/futebol/times/santos/rss2.xml', category: 'midia', enabled: true },
+  { id: 'gazeta', name: 'Gazeta', url: 'https://www.gazetaesportiva.com/times/santos/feed/', category: 'midia', enabled: true },
+  { id: 'diario', name: 'Diário do Peixe', url: 'https://www.diariodopeixe.com.br/feed/', category: 'blog', enabled: true },
+  { id: 'uol', name: 'UOL', url: 'https://rss.uol.com.br/feed/esporte.xml', category: 'midia', enabled: true },
+  { id: 'espn', name: 'ESPN', url: 'https://www.espn.com.br/espn/rss/news', category: 'midia', enabled: true },
+  { id: '90min', name: '90min', url: 'https://www.90min.com/pt-BR/teams/santos-fc/feed', category: 'midia', enabled: true },
+  { id: 'bolavip', name: 'Bolavip', url: 'https://br.bolavip.com/rss/santos-fc.xml', category: 'midia', enabled: true },
+  { id: 'torcedores', name: 'Torcedores', url: 'https://www.torcedores.com/times/santos/feed', category: 'blog', enabled: true },
+  { id: 'atribuna', name: 'A Tribuna', url: 'https://www.atribuna.com.br/rss/esportes.xml', category: 'regional', enabled: true },
 ];
 
-const MAX_ARTICLES = 30;
-const FETCH_TIMEOUT = 8000;
-const BROWSER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
-const PLACEHOLDER = 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop';
-
 const parser = new RSSParser({
-  timeout: FETCH_TIMEOUT,
-  headers: { 'User-Agent': BROWSER_AGENT },
-  customFields: { item: [['media:content', 'media:content', { keepArray: true }], ['media:thumbnail', 'media:thumbnail', { keepArray: true }], ['enclosure', 'enclosure'], ['content:encoded', 'content:encoded']] },
+  timeout: 8000,
+  headers: { 'User-Agent': 'Mozilla/5.0' },
+  customFields: { item: [['media:content', 'media:content', {keepArray:true}], ['enclosure','enclosure']] }
 });
 
 async function main() {
-  console.log(`\n[${CLUB_META.name}] Iniciando...`);
+  console.log(`\n[${CLUB_META.name}] Buscando de ${SOURCES.filter(s=>s.enabled).length} fontes...`);
   const start = Date.now();
-  const enabled = SOURCES.filter(s => s.enabled);
-  const results = await Promise.allSettled(enabled.map(async (source) => {
-    try {
-      const feed = await parser.parseURL(source.url);
-      console.log(`  ✓ ${source.name} — ${feed.items.length} itens`);
-      return feed.items.map(item => normalise(item, source));
-    } catch (err) {
-      console.warn(`  ✗ ${source.name} — ${err.message}`);
-      return [];
-    }
-  }));
-  const raw = results.flatMap(r => r.status === 'fulfilled' ? r.value : []);
-  const filtered = filterByKeyword(raw);
-  const deduped = dedupe(filtered);
-  const sorted = sortByDate(deduped).slice(0, MAX_ARTICLES);
-  const final = sorted.map(a => ({ ...a, imageUrl: a.imageUrl || PLACEHOLDER, image: a.image || PLACEHOLDER }));
-  const withImg = final.filter(a => a.imageUrl !== PLACEHOLDER).length;
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify({ meta: { club: CLUB_META.id, lastUpdated: new Date().toISOString(), totalItems: final.length }, news: final }, null, 2));
-  console.log(`\n  Total: ${raw.length} → Final: ${final.length}`);
-  console.log(`  Com imagens: ${withImg}/${final.length}`);
-  console.log(`  ✓ Concluído em ${((Date.now()-start)/1000).toFixed(1)}s\n`);
+  
+  const results = await Promise.allSettled(
+    SOURCES.filter(s=>s.enabled).map(async s => {
+      try {
+        const feed = await parser.parseURL(s.url);
+        return feed.items.map(i => ({
+          id: Buffer.from(i.link||i.guid).toString('base64url'),
+          title: (i.title||'').replace(/<[^>]*>/g,''),
+          summary: (i.contentSnippet||'').replace(/<[^>]*>/g,'').substring(0,200),
+          source: s.name,
+          sourceUrl: i.link,
+          imageUrl: extractImg(i),
+          publishedAt: i.isoDate || new Date().toISOString(),
+          category: s.category,
+        }));
+      } catch(e) { console.log(`  ✗ ${s.name}`); return []; }
+    })
+  );
+  
+  const articles = results.flatMap(r=>r.value||[])
+    .filter(a => new RegExp(KEYWORDS.join('|'),'i').test(a.title))
+    .sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt))
+    .slice(0, MAX_ARTICLES);
+  
+  await fs.writeFile(OUTPUT_PATH, JSON.stringify({
+    meta: { lastUpdated: new Date().toISOString(), total: articles.length },
+    news: articles
+  }, null, 2));
+  
+  console.log(`✓ ${articles.length} notícias salvas em ${((Date.now()-start)/1000).toFixed(1)}s`);
 }
 
-function normalise(item, source) {
-  const img = getImage(item);
-  return {
-    id: Buffer.from(item.link || item.guid || item.title).toString('base64url'),
-    title: clean(item.title),
-    summary: clean(item.contentSnippet || item.summary || ''),
-    content: item['content:encoded'] || item.content || '',
-    category: source.category,
-    source: source.name,
-    sourceUrl: item.link || item.guid || '',
-    image: img,
-    imageUrl: img,
-    imageAlt: clean(item.title),
-    publishedAt: item.isoDate || new Date(item.pubDate).toISOString(),
-    featured: false,
-    relevanceScore: 0,
-    tags: [],
-  };
+function extractImg(i) {
+  const mc = i['media:content']?.[0];
+  if (mc?.['$']?.url) return mc['$'].url;
+  if (i.enclosure?.url) return i.enclosure.url;
+  const m = (i.content||'').match(/<img[^>]+src="([^"]+)"/);
+  return m ? m[1] : '';
 }
 
-function getImage(item) {
-  const mc = item['media:content'];
-  if (mc) {
-    for (const m of (Array.isArray(mc) ? mc : [mc])) {
-      const url = m?.$?.url || m?.url || m;
-      if (url && typeof url === 'string' && url.startsWith('http')) return cleanUrl(url);
-    }
-  }
-  const mt = item['media:thumbnail'];
-  if (mt) {
-    for (const t of (Array.isArray(mt) ? mt : [mt])) {
-      const url = t?.$?.url || t?.url || t;
-      if (url && typeof url === 'string' && url.startsWith('http')) return cleanUrl(url);
-    }
-  }
-  if (item.enclosure?.url) return cleanUrl(item.enclosure.url);
-  const html = item['content:encoded'] || item.content || '';
-  const m = html.match(/<img[^>]+src=["'](https?:\/\/[^"']+)/i);
-  if (m) return cleanUrl(m[1]);
-  return '';
-}
-
-function cleanUrl(url) {
-  if (!url) return '';
-  let u = url.split('?')[0];
-  if (u.startsWith('//')) u = 'https:' + u;
-  if (u.startsWith('http://')) u = u.replace('http://', 'https://');
-  return u.startsWith('https://') ? u : '';
-}
-
-function clean(str) { return (str || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim(); }
-function filterByKeyword(articles) { if (!KEYWORDS.length) return articles; const re = new RegExp(KEYWORDS.join('|'), 'i'); return articles.filter(a => re.test(`${a.title} ${a.summary}`)); }
-function dedupe(articles) { const seen = new Set(); return articles.filter(a => { if (!a.sourceUrl || seen.has(a.sourceUrl)) return false; seen.add(a.sourceUrl); return true; }); }
-function sortByDate(articles) { return [...articles].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)); }
-
-main().catch(err => { console.error('FATAL:', err); process.exit(1); });
+main().catch(console.error);
