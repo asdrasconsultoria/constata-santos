@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 
 const CLUB_META = { id: 'santos', name: 'Constata Santos' };
-const KEYWORDS = ['Santos Futebol Clube', 'Meninos da Vila', 'Peixe', 'Presidente Marcelo Teixeira', 'Vila Belmiro', 'Neymar', 'CT Rei Pelé', 'Torcida do Santos', 'Torcida Jovem', 'Time Santista', 'Menino da Vila','Santos FC'];
+const KEYWORDS = ['Santos Futebol Clube', 'Meninos da Vila', 'Peixe', 'Vila Belmiro', 'Menino da Vila','Santos FC'];
 const SOURCES = [
   // OFICIAIS (sempre tem imagem)
   {
