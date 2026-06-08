@@ -112,7 +112,7 @@ async function main() {
 function normalise(item, source) {
   const img = getImage(item);
   return {
-    id: Buffer.from(item.link || item.guid || item.title).toString('base64url').slice(0, 20),
+    id: Buffer.from(item.link || item.guid || item.title).toString('base64url'),
     title: clean(item.title),
     summary: clean(item.contentSnippet || item.summary || ''),
     content: item['content:encoded'] || item.content || '',
