@@ -135,6 +135,7 @@ function normalise(item, source) {
     sourceUrl: item.link || item.guid || '',
     imageUrl: getImage(item),
     publishedAt: item.isoDate || new Date(item.pubDate).toISOString(),
+    imageAlt: clean(item.title),
     featured: false,
     relevanceScore: 0,
     tags: [],
