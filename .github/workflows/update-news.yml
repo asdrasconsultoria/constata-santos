@@ -15,7 +15,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'  # ← CACHE AQUI
           
       - name: Install deps
         run: npm install rss-parser --no-audit --no-fund --prefer-offline
