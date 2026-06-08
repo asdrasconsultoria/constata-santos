@@ -1,68 +1,31 @@
-# =============================================================================
-# update-news.yml
-# GitHub Actions workflow for Constata Press.
-#
-# WHAT THIS DOES:
-#   Runs the news collection pipeline every hour, commits the updated
-#   noticias.json back to the repository, and lets Netlify deploy automatically.
-#
-# REQUIREMENTS:
-#   - Repository connected to Netlify with auto-deploy on push enabled.
-#   - No secrets required for the pipeline itself.
-#   - Node.js 20 (LTS).
-#
-# TRIGGER SUMMARY:
-#   - Scheduled: every hour at minute 0
-#   - Manual:    workflow_dispatch (run anytime from GitHub UI)
-# =============================================================================
-
 name: Update News
-
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'   # every hour at :00
-  workflow_dispatch:        # manual trigger from GitHub Actions UI
+    - cron: '0 * * * *'
 
 jobs:
-  fetch-and-commit:
-    name: Fetch RSS and update noticias.json
+  update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     permissions:
-      contents: write       # required to commit back to the repository
-
+      contents: write
     steps:
-
-      # ── 1. Checkout ──────────────────────────────────────────────────────────
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # ── 2. Node.js ───────────────────────────────────────────────────────────
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      # ── 3. Install dependencies ───────────────────────────────────────────────
-      - name: Install pipeline dependencies
-        working-directory: scripts
-        run: npm install
-
-      # ── 4. Run pipeline ───────────────────────────────────────────────────────
-      - name: Fetch news
-        working-directory: scripts
-        run: npm run fetch
-
-      # ── 5. Commit if noticias.json changed ────────────────────────────────────
-      - name: Commit updated noticias.json
+          node-version: 20
+          cache: 'npm'  # ← CACHE AQUI
+          
+      - name: Install deps
+        run: npm install rss-parser --no-audit --no-fund --prefer-offline
+        
+      - name: Fetch
+        run: node scripts/fetch-news.js
+        
+      - name: Commit
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "bot"
+          git config user.email "bot@bot.com"
           git add noticias.json
-          if git diff --cached --quiet; then
-            echo "No changes to noticias.json — skipping commit."
-          else
-            git commit -m "chore: update noticias.json [$(date -u '+%Y-%m-%d %H:%M UTC')]"
-            git push
-          fi
+          git diff --staged --quiet || (git commit -m "update [skip ci]" && git push)
