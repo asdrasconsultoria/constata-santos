@@ -1,16 +1,6 @@
 // =============================================================================
 // fetch-news.js
 // News collection pipeline for Constata Press.
-//
-// WHAT THIS FILE DOES:
-//   1. Reads sources and keywords from rss-sources.js
-//   2. Fetches each enabled RSS feed
-//   3. Filters articles by keyword
-//   4. Normalises articles into the noticias.json schema
-//   5. Proxies image URLs through images.weserv.nl (avoids hotlink blocking)
-//   6. Deduplicates by URL
-//   7. Sorts by publication date (newest first)
-//   8. Writes the result to noticias.json
 // =============================================================================
 
 import fs                from 'fs/promises';
@@ -22,33 +12,33 @@ import RSSParser         from 'rss-parser';
 
 import { CLUB_META, KEYWORDS, SOURCES } from './rss-sources.js';
 
-// ---------------------------------------------------------------------------
-// Paths
-// ---------------------------------------------------------------------------
 const __dirname   = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 
-// ---------------------------------------------------------------------------
-// Internal config
-// ---------------------------------------------------------------------------
-const MAX_ARTICLES  = 30;    // cap stored in noticias.json
-const FETCH_TIMEOUT = 10000; // ms per feed request
-const BOT_AGENT     = 'ConstataPressBot/1.0';
-const BROWSER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36';
+const MAX_ARTICLES   = 30;
+const FETCH_TIMEOUT  = 10000;
+const IMAGE_TIMEOUT  = 8000;
+const BROWSER_AGENT  = 'Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36';
 
-
-// =============================================================================
-// 1. SOURCE TYPE DISPATCHER
-// =============================================================================
+// rss-parser configured to capture all common image field variants
+const parser = new RSSParser({
+  timeout: FETCH_TIMEOUT,
+  headers: { 'User-Agent': BROWSER_AGENT },
+  customFields: {
+    item: [
+      ['media:content',   'media:content',   { keepArray: false }],
+      ['media:thumbnail', 'media:thumbnail', { keepArray: false }],
+      ['enclosure',       'enclosure',       { keepArray: false }],
+    ],
+  },
+});
 
 const SOURCE_HANDLERS = {
   rss: fetchRSS,
-  // FUTURE: blog, youtube, document, social
 };
 
-
 // =============================================================================
-// 2. MAIN
+// MAIN
 // =============================================================================
 
 async function main() {
@@ -85,56 +75,40 @@ async function main() {
   console.log(`  After dedupe:     ${deduped.length}`);
   console.log(`  Saved to output:  ${trimmed.length}`);
 
-  const output = buildOutput(trimmed);
+  // Enrich articles that have no image with og:image from article page
+  console.log(`\n  Enriching images…`);
+  const enriched = await enrichImages(trimmed);
+
+  const output = buildOutput(enriched);
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(output, null, 2), 'utf8');
 
   console.log(`\n  ✓ noticias.json updated — ${output.meta.lastUpdated}\n`);
 }
 
-
 // =============================================================================
-// 3. SOURCE DISPATCHER
+// SOURCE DISPATCHER
 // =============================================================================
 
 async function dispatchSource(source) {
   const handler = SOURCE_HANDLERS[source.type];
   if (!handler) {
-    console.warn(`  [skip] Source "${source.id}" has unimplemented type: "${source.type}"`);
+    console.warn(`  [skip] "${source.id}" — unimplemented type: "${source.type}"`);
     return [];
   }
   return handler(source);
 }
 
-
 // =============================================================================
-// 4. RSS HANDLER
+// RSS HANDLER
 // =============================================================================
 
 async function fetchRSS(source) {
-  const parser = new RSSParser({
-    timeout: FETCH_TIMEOUT,
-    headers: { 'User-Agent': BOT_AGENT },
-  });
   const feed = await parser.parseURL(source.url);
-
-  // Normalise all items, then enrich images in parallel
-  const articles = feed.items.map(item => normaliseArticle(item, source));
-
-  const enriched = await Promise.allSettled(
-    articles.map(async article => {
-      if (article.imageUrl) return article;
-      // Feed provided no image — try og:image from the article page
-      const ogImage = await fetchOgImage(article.sourceUrl);
-      return { ...article, imageUrl: proxyImage(ogImage) };
-    })
-  );
-
-  return enriched.map((r, i) => r.status === 'fulfilled' ? r.value : articles[i]);
+  return feed.items.map(item => normaliseArticle(item, source));
 }
 
-
 // =============================================================================
-// 5. NORMALISER
+// NORMALISER
 // =============================================================================
 
 function normaliseArticle(item, source) {
@@ -154,9 +128,106 @@ function normaliseArticle(item, source) {
   };
 }
 
+// =============================================================================
+// IMAGE ENRICHMENT
+// For articles with no image from RSS, fetch og:image from the article page.
+// Runs sequentially to avoid overwhelming servers.
+// =============================================================================
+
+async function enrichImages(articles) {
+  const enriched = [];
+  let hits = 0;
+  let misses = 0;
+
+  for (const article of articles) {
+    if (article.imageUrl) {
+      enriched.push(article);
+      continue;
+    }
+
+    const ogImage = await fetchOgImage(article.sourceUrl);
+    if (ogImage) {
+      console.log(`  [img] ✓ og:image found — ${article.title.slice(0, 50)}`);
+      hits++;
+      enriched.push({ ...article, imageUrl: proxyImage(ogImage) });
+    } else {
+      console.log(`  [img] ✗ no image — ${article.title.slice(0, 50)}`);
+      misses++;
+      enriched.push(article);
+    }
+  }
+
+  console.log(`  Images enriched: ${hits} found, ${misses} not found`);
+  return enriched;
+}
+
+async function fetchOgImage(url) {
+  return new Promise(resolve => {
+    if (!url) return resolve('');
+
+    const lib     = url.startsWith('https') ? https : http;
+    const timeout = setTimeout(() => {
+      console.log(`  [img] timeout — ${url.slice(0, 60)}`);
+      resolve('');
+    }, IMAGE_TIMEOUT);
+
+    try {
+      const req = lib.get(url, {
+        headers: {
+          'User-Agent': BROWSER_AGENT,
+          'Accept': 'text/html',
+        }
+      }, res => {
+        if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
+          clearTimeout(timeout);
+          res.destroy();
+          fetchOgImage(res.headers.location).then(resolve);
+          return;
+        }
+
+        if (res.statusCode !== 200) {
+          clearTimeout(timeout);
+          res.destroy();
+          console.log(`  [img] HTTP ${res.statusCode} — ${url.slice(0, 60)}`);
+          return resolve('');
+        }
+
+        let html = '';
+        res.setEncoding('utf8');
+
+        res.on('data', chunk => {
+          html += chunk;
+          if (html.length > 50000 || html.includes('</head>')) {
+            req.destroy();
+          }
+        });
+
+        res.on('close', () => {
+          clearTimeout(timeout);
+          const match =
+            html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
+            html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+          resolve(match ? match[1] : '');
+        });
+
+        res.on('error', () => { clearTimeout(timeout); resolve(''); });
+      });
+
+      req.on('error', err => {
+        clearTimeout(timeout);
+        console.log(`  [img] error — ${err.message}`);
+        resolve('');
+      });
+
+    } catch (err) {
+      clearTimeout(timeout);
+      resolve('');
+    }
+  });
+}
 
 // =============================================================================
-// 6. FILTERING
+// FILTERING
 // =============================================================================
 
 function filterByKeyword(articles, keywords) {
@@ -168,9 +239,8 @@ function filterByKeyword(articles, keywords) {
   });
 }
 
-
 // =============================================================================
-// 7. DEDUPLICATION
+// DEDUPLICATION
 // =============================================================================
 
 function deduplicateByUrl(articles) {
@@ -182,19 +252,16 @@ function deduplicateByUrl(articles) {
   });
 }
 
-
 // =============================================================================
-// 8. SCORING (extension point)
+// SCORING (extension point)
 // =============================================================================
 
 function scoreArticles(articles) {
-  // FUTURE: compute relevanceScore per article
   return articles;
 }
 
-
 // =============================================================================
-// 9. SORTING
+// SORTING
 // =============================================================================
 
 function sortByDate(articles) {
@@ -205,9 +272,8 @@ function sortByDate(articles) {
   });
 }
 
-
 // =============================================================================
-// 10. OUTPUT BUILDER
+// OUTPUT BUILDER
 // =============================================================================
 
 function buildOutput(articles) {
@@ -221,7 +287,6 @@ function buildOutput(articles) {
   };
 }
 
-
 // =============================================================================
 // HELPERS
 // =============================================================================
@@ -233,10 +298,7 @@ function generateId(raw) {
 }
 
 function cleanText(str) {
-  return str
-    .replace(/<[^>]*>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return str.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 }
 
 function parseDate(raw) {
@@ -246,59 +308,38 @@ function parseDate(raw) {
 }
 
 function extractImage(item) {
-  if (item['media:content']?.$.url)   return item['media:content'].$.url;
-  if (item['media:thumbnail']?.$.url) return item['media:thumbnail'].$.url;
+  // Try all common RSS image field variants
+  const mc = item['media:content'];
+  if (mc) {
+    if (typeof mc === 'string') return mc;
+    if (mc.$ && mc.$.url) return mc.$.url;
+    if (mc.url) return mc.url;
+  }
 
+  const mt = item['media:thumbnail'];
+  if (mt) {
+    if (typeof mt === 'string') return mt;
+    if (mt.$ && mt.$.url) return mt.$.url;
+    if (mt.url) return mt.url;
+  }
+
+  const enc = item.enclosure;
+  if (enc) {
+    if (enc.url && enc.type?.startsWith('image/')) return enc.url;
+  }
+
+  // Try embedded img tag in content
   const contentHtml = item.content ?? item['content:encoded'] ?? '';
-  const imgMatch    = contentHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
+  const imgMatch = contentHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
   if (imgMatch) return imgMatch[1];
 
-  if (item.enclosure?.url) return item.enclosure.url;
-
   return '';
-}
-
-// Fetches the article page and extracts the og:image meta tag.
-// Used as fallback when the RSS feed provides no image.
-function fetchOgImage(url) {
-  return new Promise(resolve => {
-    if (!url) return resolve('');
-
-    const lib     = url.startsWith('https') ? https : http;
-    const timeout = setTimeout(() => resolve(''), 8000);
-
-    const req = lib.get(url, { headers: { 'User-Agent': BROWSER_AGENT } }, res => {
-      // Follow one redirect
-      if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location) {
-        clearTimeout(timeout);
-        return resolve(fetchOgImage(res.headers.location));
-      }
-
-      let html = '';
-      res.setEncoding('utf8');
-      res.on('data', chunk => {
-        html += chunk;
-        // Stop reading once we have the <head> — og:image is always there
-        if (html.includes('</head>')) req.destroy();
-      });
-      res.on('end', () => {
-        clearTimeout(timeout);
-        const match = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)
-                   ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-        resolve(match ? match[1] : '');
-      });
-      res.on('error', () => { clearTimeout(timeout); resolve(''); });
-    });
-
-    req.on('error', () => { clearTimeout(timeout); resolve(''); });
-  });
 }
 
 function proxyImage(url) {
   if (!url) return '';
   return `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
 }
-
 
 // =============================================================================
 // RUN
