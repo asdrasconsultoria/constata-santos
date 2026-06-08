@@ -377,7 +377,7 @@ const Render = {
     const card = document.createElement('article');
     card.className = 'news-card';
     card.setAttribute('role', 'listitem');
-    card.dataset.articleId = article.id;
+    card.dataset.articleId = article.id || article.sourceUrl;
     card.setAttribute('tabindex', '0');
     card.setAttribute('aria-label', article.title);
 
