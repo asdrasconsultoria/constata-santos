@@ -57,14 +57,6 @@ const SOURCES = [
     enabled:           true,
     skipKeywordFilter: true,
   },
-  {
-    id:                'santos-oficial',
-    name:              'Santos FC Oficial',
-    url:               'https://www.santosfc.com.br/feed/',
-    category:          'oficial',
-    enabled:           true,
-    skipKeywordFilter: true,
-  },
 
   // ── Portais esportivos com feed Santos específico ─────────────────────────
   {
