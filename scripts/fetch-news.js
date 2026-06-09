@@ -13,14 +13,13 @@ const KEYWORDS = [
   'Peixe',             // apelido único do clube
   'Vila Belmiro',
   'Meninos da Vila',
-  'Neymar',
   'Gabigol',
   'Cuca',
   'Miguelito',
   'Brazão',
   'Bontempo',
-  'Deivid Washington',
-  'Soteldo',
+  'Diretoria do Santos FC',
+  'Santos Futebol Clube',
 ];
 
 const MAX_ARTICLES = 50;
@@ -119,7 +118,7 @@ const SOURCES = [
     name:              'Trivela',
     url:               'https://trivela.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
