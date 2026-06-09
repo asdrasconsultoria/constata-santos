@@ -890,19 +890,25 @@ function _sortByDate(a, b) {
 }
 
 /**
- * Find the featured article (featured:true) or fall back to highest relevanceScore.
+ * Find the featured article.
+ * Priority:
+ *   1. featured: true explícito no JSON
+ *   2. Artigo mais recente com imagem (já ordenados por data desc)
+ *   3. Primeiro artigo (fallback absoluto)
  */
 function _getFeaturedArticle(articles) {
   if (!articles.length) return null;
 
+  // 1. Explícito
   const explicit = articles.find(a => a.featured === true);
   if (explicit) return explicit;
 
-  // Fallback: highest relevanceScore
-  return articles.reduce((best, a) => {
-    const score = a.relevanceScore ?? 0;
-    return score > (best.relevanceScore ?? 0) ? a : best;
-  }, articles[0]);
+  // 2. Mais recente com imagem
+  const withImage = articles.find(a => a.image && a.image.length > 0);
+  if (withImage) return withImage;
+
+  // 3. Fallback absoluto
+  return articles[0];
 }
 
 /**
