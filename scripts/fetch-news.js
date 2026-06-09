@@ -85,7 +85,14 @@ const SOURCES = [
     enabled:           true,
     skipKeywordFilter: false,
   },
-];
+ {
+  id:                'noataque',
+  name:              'No Ataque',
+  url:               'https://www.noataque.com.br/feed/',
+  category:          'futebol',
+  enabled:           true,
+  skipKeywordFilter: false,
+},
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PARSER RSS
