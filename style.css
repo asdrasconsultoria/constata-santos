@@ -1875,6 +1875,9 @@ time { font-variant-numeric: tabular-nums; }
   .news-card-image-wrap { height: 180px; }
 }
 
+.news-card-source { display: none;
+}
+
 
 /* ============================================================================
    21. ACCESSIBILITY & REDUCED MOTION
