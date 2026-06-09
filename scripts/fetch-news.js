@@ -110,7 +110,7 @@ const SOURCES = [
     name:              'Trivela',
     url:               'https://trivela.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
