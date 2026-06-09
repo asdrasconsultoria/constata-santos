@@ -85,7 +85,52 @@ const SOURCES = [
     enabled:           true,
     skipKeywordFilter: false,
   },
- 
+  {
+    id:                'noataque',
+    name:              'No Ataque',
+    url:               'https://www.noataque.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+
+  // ── Portais esportivos com feed Santos específico (novos) ─────────────────
+  {
+    id:                'lance-santos',
+    name:              'Lance! Santos',
+    url:               'https://www.lance.com.br/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // ── Portais esportivos gerais — filtrados por keyword (novos) ─────────────
+  {
+    id:                'trivela',
+    name:              'Trivela',
+    url:               'https://trivela.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+  {
+    id:                'futebol-interior',
+    name:              'Futebol Interior',
+    url:               'https://www.futebolinterior.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+  {
+    id:                'goal-brasil',
+    name:              'Goal Brasil',
+    url:               'https://www.goal.com/feeds/br/news',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+];
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PARSER RSS
 // ─────────────────────────────────────────────────────────────────────────────
@@ -329,4 +374,5 @@ function _normalize(str) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
-                         
+
+    
