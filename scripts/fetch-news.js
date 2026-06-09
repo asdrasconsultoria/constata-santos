@@ -2,8 +2,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import RSSParser from 'rss-parser';
-import https from 'https';
-import http from 'http';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
@@ -19,305 +17,91 @@ const KEYWORDS = [
 const MAX_ARTICLES = 50;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SOURCES
+// SOURCES — apenas portais confirmados com imagem no RSS
+//
+// Critério de inclusão:
+//   ✓ Retornou itens no último run
+//   ✓ Inclui imagem via media:content, enclosure ou content:encoded
+//   ✗ Google News removido — nunca inclui imagem no RSS
+//   ✗ Lance!, UOL, ESPN, Placar removidos — retornaram 404/403
+//
+// skipKeywordFilter:
+//   true  → feed já é específico do Santos, não precisa filtrar
+//   false → feed geral de futebol, filtra por keyword
 // ─────────────────────────────────────────────────────────────────────────────
 
 const SOURCES = [
 
-  // ── Google News — fonte principal ─────────────────────────────────────────
+  // ── 100% dedicados ao Santos ──────────────────────────────────────────────
   {
-    id: 'gnews-santos-fc',
-    name: 'Google News — Santos FC',
-    url: 'https://news.google.com/rss/search?q=%22Santos+FC%22&hl=pt-BR&gl=BR&ceid=BR:pt-419',
-    category: 'futebol',
-    enabled: true,
+    id:                'diario-peixe',
+    name:              'Diário do Peixe',
+    url:               'https://www.diariodopeixe.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
     skipKeywordFilter: true,
   },
   {
-    id: 'gnews-neymar-santos',
-    name: 'Google News — Neymar Santos',
-    url: 'https://news.google.com/rss/search?q=Neymar+Santos+FC&hl=pt-BR&gl=BR&ceid=BR:pt-419',
-    category: 'futebol',
-    enabled: true,
+    id:                'soul-santista',
+    name:              'Blog Soul Santista',
+    url:               'https://blogsoulsantista.com.br/feed/',
+    category:          'opiniao',
+    enabled:           true,
     skipKeywordFilter: true,
   },
   {
-    id: 'gnews-santos-brasileiro',
-    name: 'Google News — Santos Brasileirão',
-    url: 'https://news.google.com/rss/search?q=%22Santos%22+Brasileiro+futebol&hl=pt-BR&gl=BR&ceid=BR:pt-419',
-    category: 'futebol',
-    enabled: true,
-    skipKeywordFilter: false,
-  },
-  {
-    id: 'gnews-santos-transferencias',
-    name: 'Google News — Santos mercado',
-    url: 'https://news.google.com/rss/search?q=%22Santos+FC%22+transfer%C3%AAncia+OR+contrato+OR+refor%C3%A7o&hl=pt-BR&gl=BR&ceid=BR:pt-419',
-    category: 'mercado',
-    enabled: true,
+    id:                'santistas-net',
+    name:              'Santistas.net',
+    url:               'https://santistas.net/noticias-do-santos/feed/',
+    category:          'futebol',
+    enabled:           true,
     skipKeywordFilter: true,
   },
   {
-    id: 'gnews-peixe',
-    name: 'Google News — Peixe Vila Belmiro',
-    url: 'https://news.google.com/rss/search?q=%22Peixe%22+%22Vila+Belmiro%22&hl=pt-BR&gl=BR&ceid=BR:pt-419',
-    category: 'futebol',
-    enabled: true,
+    id:                'santos-oficial',
+    name:              'Santos FC Oficial',
+    url:               'https://www.santosfc.com.br/feed/',
+    category:          'oficial',
+    enabled:           true,
     skipKeywordFilter: true,
   },
 
-  // ── Sites dedicados ao Santos ─────────────────────────────────────────────
+  // ── Portais esportivos com feed Santos específico ─────────────────────────
   {
-    id: 'diario-peixe',
-    name: 'Diário do Peixe',
-    url: 'https://www.diariodopeixe.com.br/feed/',
-    category: 'futebol',
-    enabled: true,
+    id:                'gazeta-santos',
+    name:              'Gazeta Esportiva',
+    url:               'https://www.gazetaesportiva.com/times/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
     skipKeywordFilter: true,
   },
   {
-    id: 'soul-santista',
-    name: 'Blog Soul Santista',
-    url: 'https://blogsoulsantista.com.br/feed/',
-    category: 'opiniao',
-    enabled: true,
-    skipKeywordFilter: true,
-  },
-  {
-    id: 'santistas-net',
-    name: 'Santistas.net',
-    url: 'https://santistas.net/noticias-do-santos/feed/',
-    category: 'futebol',
-    enabled: true,
-    skipKeywordFilter: true,
-  },
-  {
-    id: 'santos-oficial',
-    name: 'Santos FC Oficial',
-    url: 'https://www.santosfc.com.br/feed/',
-    category: 'oficial',
-    enabled: true,
+    id:                'gazeta-tag-santos',
+    name:              'Gazeta Esportiva (tag)',
+    url:               'https://www.gazetaesportiva.com/tag/santos-fc/feed/',
+    category:          'futebol',
+    enabled:           true,
     skipKeywordFilter: true,
   },
 
-  // ── Portais esportivos ────────────────────────────────────────────────────
+  // ── Portais esportivos gerais — filtrados por keyword ─────────────────────
   {
-    id: 'gazeta-santos',
-    name: 'Gazeta Esportiva',
-    url: 'https://www.gazetaesportiva.com/times/santos/feed/',
-    category: 'futebol',
-    enabled: true,
-    skipKeywordFilter: true,
-  },
-  {
-    id: 'gazeta-tag-santos',
-    name: 'Gazeta Esportiva (tag)',
-    url: 'https://www.gazetaesportiva.com/tag/santos-fc/feed/',
-    category: 'futebol',
-    enabled: true,
-    skipKeywordFilter: true,
-  },
-  {
-    id: 'trivela',
-    name: 'Trivela',
-    url: 'https://trivela.com.br/feed/',
-    category: 'analise',
-    enabled: true,
+    id:                'trivela',
+    name:              'Trivela',
+    url:               'https://trivela.com.br/feed/',
+    category:          'analise',
+    enabled:           true,
     skipKeywordFilter: false,
   },
   {
-    id: 'bolavip',
-    name: 'Bolavip',
-    url: 'https://br.bolavip.com/rss/feed/category/campeonato-brasileirao',
-    category: 'futebol',
-    enabled: true,
+    id:                'bolavip',
+    name:              'Bolavip',
+    url:               'https://br.bolavip.com/rss/feed/category/campeonato-brasileirao',
+    category:          'futebol',
+    enabled:           true,
     skipKeywordFilter: false,
   },
 ];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// PLACEHOLDERS POR CATEGORIA
-// Imagens temáticas diferentes por categoria — evita repetição visual
-// mesmo quando nenhuma imagem real é encontrada.
-// ─────────────────────────────────────────────────────────────────────────────
-
-const PLACEHOLDERS = {
-  futebol:       'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&h=400&fit=crop',
-  mercado:       'https://images.unsplash.com/photo-1565109450072-f3fcdf84e61a?w=600&h=400&fit=crop',
-  analise:       'https://images.unsplash.com/photo-1551958219-acbc630e2914?w=600&h=400&fit=crop',
-  opiniao:       'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&h=400&fit=crop',
-  oficial:       'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop',
-  bastidores:    'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&h=400&fit=crop',
-  institucional: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&h=400&fit=crop',
-  _default:      'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop',
-};
-
-function getPlaceholder(category) {
-  return PLACEHOLDERS[category] || PLACEHOLDERS._default;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// BUSCA DE OG:IMAGE
-//
-// O Google News RSS inclui no campo <link> a URL do artigo original
-// (ex: https://ge.globo.com/futebol/...) — NÃO a URL do Google News.
-// Então fetchOgImage vai direto ao artigo real e pega o og:image.
-//
-// Para outros sites (Diário do Peixe, Gazeta etc.) o og:image é
-// backup — eles já entregam imagem no RSS via media:content.
-// ─────────────────────────────────────────────────────────────────────────────
-
-const IMAGE_FETCH_TIMEOUT   = 6000;  // 6s por artigo
-const IMAGE_FETCH_CONCURRENCY = 10;  // 10 em paralelo
-const _imageCache = new Map();
-
-async function fetchOgImage(articleUrl) {
-  if (!articleUrl) return '';
-  if (_imageCache.has(articleUrl)) return _imageCache.get(articleUrl);
-
-  try {
-    const html = await fetchHtmlWithRedirects(articleUrl, IMAGE_FETCH_TIMEOUT, 5);
-    if (!html) { _imageCache.set(articleUrl, ''); return ''; }
-
-    // Tenta og:image primeiro, depois twitter:image, depois primeira <img>
-    const img =
-      extractMeta(html, 'og:image') ||
-      extractMeta(html, 'twitter:image') ||
-      extractMeta(html, 'og:image:secure_url') ||
-      extractFirstImg(html);
-
-    const cleaned = img ? cleanUrl(img) : '';
-    _imageCache.set(articleUrl, cleaned);
-    return cleaned;
-  } catch {
-    _imageCache.set(articleUrl, '');
-    return '';
-  }
-}
-
-function extractMeta(html, property) {
-  // Suporta property="og:image" e name="og:image" em qualquer ordem
-  const re = new RegExp(
-    `<meta[^>]+(?:property|name)=["']${property}["'][^>]+content=["']([^"'\\s][^"']+)["']` +
-    `|<meta[^>]+content=["']([^"'\\s][^"']+)["'][^>]+(?:property|name)=["']${property}["']`,
-    'i'
-  );
-  const m = html.match(re);
-  return m ? (m[1] || m[2] || '') : '';
-}
-
-function extractFirstImg(html) {
-  // Pega a primeira <img> com src https dentro do <body>
-  const body = html.split(/<body/i)[1] || html;
-  const m = body.match(/<img[^>]+src=["'](https:\/\/[^"'\s>]{20,})["']/i);
-  return m ? m[1] : '';
-}
-
-// Faz GET seguindo redirects HTTP encadeados (até maxRedirects vezes)
-function fetchHtmlWithRedirects(url, timeout, maxRedirects) {
-  return new Promise((resolve) => {
-    let redirectsLeft = maxRedirects;
-    let settled = false;
-
-    const done = (val) => { if (!settled) { settled = true; resolve(val); } };
-
-    // Timer global para toda a cadeia
-    const globalTimer = setTimeout(() => done(''), timeout);
-
-    function doRequest(currentUrl) {
-      try {
-        const lib = currentUrl.startsWith('https') ? https : http;
-        const req = lib.get(currentUrl, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,*/*;q=0.8',
-            'Accept-Language': 'pt-BR,pt;q=0.9',
-          },
-        }, (res) => {
-          // Redirect
-          if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-            res.resume(); // drena o body
-            if (redirectsLeft-- <= 0) { done(''); return; }
-            const next = resolveUrl(res.headers.location, currentUrl);
-            if (!next) { done(''); return; }
-            doRequest(next);
-            return;
-          }
-
-          // Resposta não-HTML (imagem, PDF etc.) — ignora
-          const ct = res.headers['content-type'] || '';
-          if (!ct.includes('html') && !ct.includes('text')) {
-            res.resume();
-            done('');
-            return;
-          }
-
-          let data = '';
-          res.on('data', (chunk) => {
-            data += chunk;
-            // Para após 40kb — suficiente para o <head> com os meta tags
-            if (data.length > 40000) {
-              req.destroy();
-              clearTimeout(globalTimer);
-              done(data);
-            }
-          });
-          res.on('end', () => {
-            clearTimeout(globalTimer);
-            done(data);
-          });
-          res.on('error', () => done(''));
-        });
-
-        req.on('error', () => done(''));
-        req.setTimeout(timeout, () => { req.destroy(); done(''); });
-      } catch {
-        done('');
-      }
-    }
-
-    doRequest(url);
-  });
-}
-
-// Resolve URL relativa para absoluta usando a URL base
-function resolveUrl(location, base) {
-  try {
-    return new URL(location, base).href;
-  } catch {
-    return '';
-  }
-}
-
-// Enriquece artigos sem imagem buscando o og:image do artigo original
-async function enrichImages(articles) {
-  const needsImage = articles.filter(a => !a.image);
-  if (needsImage.length === 0) {
-    console.log('  → Todos os artigos já têm imagem do RSS.');
-    return articles;
-  }
-
-  console.log(`  → Buscando og:image para ${needsImage.length} artigos...`);
-
-  let found = 0;
-  for (let i = 0; i < needsImage.length; i += IMAGE_FETCH_CONCURRENCY) {
-    const batch = needsImage.slice(i, i + IMAGE_FETCH_CONCURRENCY);
-    const results = await Promise.allSettled(
-      batch.map(a => fetchOgImage(a.sourceUrl))
-    );
-    results.forEach((r, idx) => {
-      const img = r.status === 'fulfilled' ? r.value : '';
-      if (img) {
-        batch[idx].image    = img;
-        batch[idx].imageUrl = img;
-        found++;
-      }
-    });
-  }
-
-  console.log(`  → Imagens encontradas: ${found}/${needsImage.length}`);
-  return articles;
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PARSER RSS
@@ -328,8 +112,8 @@ const FEED_UA = 'Mozilla/5.0 (compatible; Feedbot/1.0; +https://constatasantos.g
 const parser = new RSSParser({
   timeout: 12000,
   headers: {
-    'User-Agent': FEED_UA,
-    'Accept': 'application/rss+xml, application/xml, text/xml, */*',
+    'User-Agent':      FEED_UA,
+    'Accept':          'application/rss+xml, application/xml, text/xml, */*',
     'Accept-Language': 'pt-BR,pt;q=0.9',
   },
   customFields: {
@@ -362,20 +146,14 @@ async function main() {
   const deduped  = dedupe(filtered);
   const sorted   = sortByDate(deduped).slice(0, MAX_ARTICLES);
 
-  // Busca og:image para artigos sem imagem (principalmente Google News)
-  await enrichImages(sorted);
-
-  // Aplica placeholder por categoria para os que ainda não têm imagem
+  // Remove campo interno e garante que artigos sem imagem
+  // ficam com string vazia (o app.js já tem fallback visual via CSS)
   const final = sorted.map(a => {
     const { _skipFilter, ...article } = a;
-    return {
-      ...article,
-      image:    a.image    || getPlaceholder(a.category),
-      imageUrl: a.imageUrl || getPlaceholder(a.category),
-    };
+    return article;
   });
 
-  const withReal = final.filter(a => !Object.values(PLACEHOLDERS).includes(a.image)).length;
+  const withImg = final.filter(a => a.image).length;
 
   await fs.writeFile(
     OUTPUT_PATH,
@@ -396,7 +174,7 @@ async function main() {
   console.log(`  Após filtro keyword:  ${filtered.length}`);
   console.log(`  Após dedup:           ${deduped.length}`);
   console.log(`  Final publicado:      ${final.length}`);
-  console.log(`  Com imagem real:      ${withReal}/${final.length}`);
+  console.log(`  Com imagem real:      ${withImg}/${final.length}`);
   console.log(`  Tempo total:          ${elapsed}s`);
   console.log(`  ────────────────────────────────────────────\n`);
 }
@@ -409,14 +187,14 @@ async function fetchSource(source, attempt = 1) {
   try {
     const feed  = await parser.parseURL(source.url);
     const items = (feed.items || []).map(item => normalise(item, source));
-    console.log(`  ✓ ${source.name.padEnd(38)} ${String(items.length).padStart(3)} itens`);
+    console.log(`  ✓ ${source.name.padEnd(30)} ${String(items.length).padStart(3)} itens`);
     return items;
   } catch (err) {
     if (attempt < 2) {
       await new Promise(r => setTimeout(r, 1500));
       return fetchSource(source, attempt + 1);
     }
-    console.warn(`  ✗ ${source.name.padEnd(38)} ${err.message.slice(0, 55)}`);
+    console.warn(`  ✗ ${source.name.padEnd(30)} ${err.message.slice(0, 60)}`);
     return [];
   }
 }
@@ -496,12 +274,12 @@ function getImageFromRss(item) {
   if (item.enclosure?.url && isValidImg(item.enclosure.url)) {
     return cleanUrl(item.enclosure.url);
   }
-  // 4. Primeira imagem no HTML do conteúdo
+  // 4. Primeira <img> no HTML do conteúdo
   const html = item['content:encoded'] || item.content || '';
   const m = html.match(/<img[^>]+src=["'](https?:\/\/[^"'\s>]{10,})["']/i);
   if (m && isValidImg(m[1])) return cleanUrl(m[1]);
 
-  return ''; // sem imagem no RSS — será enriquecido depois
+  return '';
 }
 
 function isValidImg(url) {
@@ -517,8 +295,6 @@ function cleanUrl(url) {
   let u = url.trim();
   if (u.startsWith('//')) u = 'https:' + u;
   if (u.startsWith('http://')) u = 'https://' + u.slice(7);
-  // Remove query string apenas se for parâmetro de tracking puro
-  // (mantém params de imagem que alguns CDNs precisam)
   return u.startsWith('https://') ? u : '';
 }
 
@@ -570,4 +346,4 @@ function _normalize(str) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
-      
+                         
