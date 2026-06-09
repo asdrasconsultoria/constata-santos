@@ -78,14 +78,6 @@ const SOURCES = [
 
   // ── Portais esportivos gerais — filtrados por keyword ─────────────────────
   {
-    id:                'trivela',
-    name:              'Trivela',
-    url:               'https://trivela.com.br/feed/',
-    category:          'analise',
-    enabled:           true,
-    skipKeywordFilter: false,
-  },
-  {
     id:                'bolavip',
     name:              'Bolavip',
     url:               'https://br.bolavip.com/rss/feed/category/campeonato-brasileirao',
