@@ -53,7 +53,7 @@ const CLUB_CONFIG = {
   // to the frontend — it may be RSS aggregation, an API, a CMS, a Netlify
   // Function, a cron job, or manual editing. The contract is the JSON schema.
   dataSource: {
-    newsFile:        "noticias.json",
+    newsFile: "/constata-santos/noticias.json",
     refreshInterval: 5 * 60 * 1000, // Auto-refresh every 5 minutes (ms)
     cacheKey:        "constata_santos_news_cache",
     cacheMaxAge:     10 * 60 * 1000, // Cache valid for 10 minutes (ms)
