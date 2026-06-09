@@ -142,7 +142,7 @@ const SOURCES = [
     name:              'Terra Esportes',
     url:               'https://www.terra.com.br/esportes/futebol/rss/index.xml',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
@@ -150,7 +150,7 @@ const SOURCES = [
     name:              'Superesportes',
     url:               'https://www.superesportes.com.br/rss/futebol/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
 ];
