@@ -490,10 +490,20 @@ const Render = {
       _setAttr('modal-image',        'alt', article.imageAlt || article.title);
       _setText('modal-image-credit', article.imageCredit || '');
 
-      // Full article body — render paragraphs from plain text
+      // Full article body — usa content:encoded se disponível,
+      // senão cai para summary + aviso de link para a fonte original
       const bodyEl = document.getElementById('modal-article-body');
       if (bodyEl) {
-        bodyEl.innerHTML = _renderArticleBody(article.content);
+        const hasContent = article.content && article.content.trim().length > 50;
+        if (hasContent) {
+          bodyEl.innerHTML = _renderArticleBody(article.content);
+        } else {
+          const summaryHtml = article.summary
+            ? `<p>${_escHtml(article.summary)}</p>`
+            : '';
+          bodyEl.innerHTML = summaryHtml +
+            `<p class="modal-no-content-notice">O conteúdo completo desta notícia está disponível na fonte original.</p>`;
+        }
       }
 
       // Source link
