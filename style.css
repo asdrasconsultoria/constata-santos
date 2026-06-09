@@ -956,17 +956,16 @@ time { font-variant-numeric: tabular-nums; }
   gap: var(--space-4);
 }
 
-/* Card */
+/* Card — mobile: foto em cima, texto embaixo (estilo revista) */
 .news-card {
   display: flex;
-  flex-direction: row;
-  gap: var(--space-4);
+  flex-direction: column;
   background-color: var(--color-surface-raised);
   border: var(--border);
   border-radius: var(--card-radius);
   overflow: hidden;
   cursor: pointer;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-card);
   transition:
     box-shadow var(--duration-base) var(--ease-out),
     border-color var(--duration-base) var(--ease-out),
@@ -978,7 +977,7 @@ time { font-variant-numeric: tabular-nums; }
 .news-card:hover {
   box-shadow: var(--shadow-card-hover);
   border-color: var(--color-border-strong);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .news-card:focus-visible {
@@ -989,6 +988,28 @@ time { font-variant-numeric: tabular-nums; }
 
 .news-card:active { transform: translateY(0); }
 
+/* Imagem — no topo, proporção 16/9 em mobile */
+.news-card-image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.news-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+  display: block;
+}
+
+.news-card:hover .news-card-image {
+  transform: scale(1.05);
+}
+
+/* Corpo — abaixo da imagem */
 .news-card-body {
   flex: 1;
   min-width: 0;
@@ -1063,25 +1084,6 @@ time { font-variant-numeric: tabular-nums; }
   border-top: var(--border-subtle);
 }
 
-.news-card-image-wrap {
-  flex-shrink: 0;
-  width: 120px;
-  align-self: stretch;
-  overflow: hidden;
-  background-color: var(--color-border-subtle);
-}
-
-.news-card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--duration-slow) var(--ease-out);
-}
-
-.news-card:hover .news-card-image {
-  transform: scale(1.06);
-}
-
 
 /* ============================================================================
    12. SKELETON LOADERS
@@ -1089,19 +1091,16 @@ time { font-variant-numeric: tabular-nums; }
 
 .skeleton-card {
   display: flex;
-  gap: var(--space-4);
+  flex-direction: column;
   background-color: var(--color-surface-raised);
   border: var(--border);
   border-radius: var(--card-radius);
   overflow: hidden;
-  padding: var(--space-4);
 }
 
 .skeleton-image {
-  flex-shrink: 0;
-  width: 120px;
-  height: 90px;
-  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   background: linear-gradient(
     110deg,
     var(--color-border-subtle) 25%,
@@ -1117,7 +1116,7 @@ time { font-variant-numeric: tabular-nums; }
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding: var(--space-1) 0;
+  padding: var(--space-4);
 }
 
 .skeleton-line {
@@ -1774,34 +1773,13 @@ time { font-variant-numeric: tabular-nums; }
     gap: var(--space-5);
   }
 
-  .news-card {
-    flex-direction: column;
-  }
-
   .news-card-image-wrap {
-    width: 100%;
+    aspect-ratio: unset;
     height: 180px;
-    align-self: auto;
   }
 
   .news-card-body {
     padding: var(--space-4) var(--space-4) var(--space-5);
-  }
-
-  /* Skeleton adapts to grid */
-  .skeleton-card {
-    flex-direction: column;
-    padding: 0;
-  }
-
-  .skeleton-image {
-    width: 100%;
-    height: 180px;
-    border-radius: 0;
-  }
-
-  .skeleton-body {
-    padding: var(--space-4);
   }
 
   /* Footer */
