@@ -9,9 +9,18 @@ const OUTPUT_PATH = path.resolve(__dirname, '../noticias.json');
 const CLUB_META = { id: 'santos', name: 'Constata Santos' };
 
 const KEYWORDS = [
-  'Santos', 'Peixe', 'Vila Belmiro', 'Santos FC',
-  'Neymar', 'Gabigol', 'Cuca', 'Miguelito',
-  'Brazão', 'Bontempo', 'Deivid', 'Soteldo',
+  'Santos FC',
+  'Peixe',             // apelido único do clube
+  'Vila Belmiro',
+  'Meninos da Vila',
+  'Neymar',
+  'Gabigol',
+  'Cuca',
+  'Miguelito',
+  'Brazão',
+  'Bontempo',
+  'Deivid Washington',
+  'Soteldo',
 ];
 
 const MAX_ARTICLES = 50;
@@ -100,7 +109,7 @@ const SOURCES = [
     name:              'Lance! Santos',
     url:               'https://www.lance.com.br/santos/feed/',
     category:          'futebol',
-    enabled:           false,
+    enabled:           false, // XML malformado — desativado
     skipKeywordFilter: true,
   },
 
@@ -110,7 +119,7 @@ const SOURCES = [
     name:              'Trivela',
     url:               'https://trivela.com.br/feed/',
     category:          'futebol',
-    enabled:           false,
+    enabled:           true,
     skipKeywordFilter: false,
   },
   {
@@ -118,7 +127,7 @@ const SOURCES = [
     name:              'Futebol Interior',
     url:               'https://www.futebolinterior.com.br/feed/',
     category:          'futebol',
-    enabled:           false,
+    enabled:           false, // XML inválido — desativado
     skipKeywordFilter: false,
   },
   {
@@ -126,31 +135,7 @@ const SOURCES = [
     name:              'Goal Brasil',
     url:               'https://www.goal.com/feeds/br/news',
     category:          'futebol',
-    enabled:           false,
-    skipKeywordFilter: false,
-  },
-  {
-    id:                'uol-esporte-santos',
-    name:              'UOL Esporte Santos',
-    url:               'https://rss.home.uol.com.br/index.xml?tag=santos',
-    category:          'futebol',
-    enabled:           true,
-    skipKeywordFilter: true,
-  },
-  {
-    id:                'terra-esportes',
-    name:              'Terra Esportes',
-    url:               'https://www.terra.com.br/esportes/futebol/rss/index.xml',
-    category:          'futebol',
-    enabled:           false,
-    skipKeywordFilter: false,
-  },
-  {
-    id:                'superesportes',
-    name:              'Superesportes',
-    url:               'https://www.superesportes.com.br/rss/futebol/',
-    category:          'futebol',
-    enabled:           false,
+    enabled:           false, // 404 — desativado
     skipKeywordFilter: false,
   },
 ];
@@ -398,5 +383,4 @@ function _normalize(str) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
-
-    
+                         
