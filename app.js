@@ -112,10 +112,11 @@ const Data = {
     }
 
     const url = Config.dataSource.newsFile;
-    // Fetch without query-string cache-bust — Netlify CDN handles caching correctly
-    // via response headers. A ?v= suffix on a static JSON file can cause Netlify to
-    // serve its 404 page (HTML) instead of the file, breaking res.json().
-    const res = await fetch(url);
+    // Cache-bust com timestamp para forçar leitura do arquivo mais recente.
+    // GitHub Pages não respeita cache-control em arquivos estáticos, então
+    // sem o ?t= o browser pode servir o noticias.json por horas.
+    const bustUrl = `${url}?t=${Date.now()}`;
+    const res = await fetch(bustUrl, { cache: 'no-store' });
 
     if (!res.ok) {
       throw new Error(`[Constata] HTTP ${res.status} fetching ${url}. Check that noticias.json is deployed.`);
