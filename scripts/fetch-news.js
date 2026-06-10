@@ -105,7 +105,7 @@ const SOURCES = [
     name:              'No Ataque',
     url:               'https://www.noataque.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
 
@@ -151,7 +151,7 @@ const SOURCES = [
     name:              'Santos FC Oficial',
     url:               'https://www.santosfc.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 
