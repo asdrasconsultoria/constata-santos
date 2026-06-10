@@ -10,16 +10,22 @@ const CLUB_META = { id: 'santos', name: 'Constata Santos' };
 
 const KEYWORDS = [
   'Santos FC',
-  'Peixe',             // apelido único do clube
+  'Santos Futebol Clube',
+  'Peixe',              // apelido único do clube
   'Vila Belmiro',
   'Meninos da Vila',
+  'Alvinegro Praiano',
   'Gabigol',
   'Cuca',
   'Miguelito',
   'Brazão',
   'Bontempo',
-  'Diretoria do Santos FC',
-  'Santos Futebol Clube',
+  'Deivid Washington',
+  'Rollheiser',
+  'Willian Arão',
+  'Guilherme Augusto',
+  'Lautaro Diaz',
+  'Neymar',
 ];
 
 const MAX_ARTICLES = 50;
@@ -136,6 +142,84 @@ const SOURCES = [
     category:          'futebol',
     enabled:           false, // 404 — desativado
     skipKeywordFilter: false,
+  },
+
+  // ── Site oficial do Santos FC ─────────────────────────────────────────────
+  {
+    id:                'santosfc-oficial',
+    name:              'Santos FC Oficial',
+    url:               'https://www.santosfc.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // ── Portais regionais com cobertura do Santos ─────────────────────────────
+  {
+    id:                'atribuna-santos',
+    name:              'A Tribuna Santos',
+    url:               'https://www.atribuna.com.br/esportes/santos-fc/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'noticias-do-peixe',
+    name:              'Notícias do Peixe',
+    url:               'https://noticiasdopeixe.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'santos-na-vila',
+    name:              'Santos na Vila',
+    url:               'https://santosnavila.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'tudo-sobre-santos',
+    name:              'Tudo Sobre Santos',
+    url:               'https://www.tudosobresantos.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // ── Portais esportivos gerais com tag/categoria Santos ────────────────────
+  {
+    id:                'ge-santos',
+    name:              'ge.globo Santos',
+    url:               'https://ge.globo.com/santos/rss2.xml',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'uol-santos-tag',
+    name:              'UOL Esporte — Santos',
+    url:               'https://esporte.uol.com.br/futebol/campeonatos/brasileiro/serie-a/santos/rss2.xml',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'my-tip-santos',
+    name:              'MyTip Santos',
+    url:               'https://www.mytipfutebol.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'sambafoot-santos',
+    name:              'Sambafoot Santos',
+    url:               'https://www.sambafoot.com/pt/noticias/rss/santos.xml',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
   },
 ];
 
@@ -382,4 +466,4 @@ function _normalize(str) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
-                         
+
