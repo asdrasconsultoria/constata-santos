@@ -359,7 +359,6 @@ function scoreRelevance(item) {
   if (/santos\s*fc/i.test(text))    s += 3;
   if (/peixe/i.test(text))          s += 2;
   if (/vila\s*belmiro/i.test(text)) s += 2;
-  if (/neymar/i.test(text))         s += 1;
   if (/gabigol/i.test(text))        s += 1;
   if (/cuca/i.test(text))           s += 1;
   return s;
