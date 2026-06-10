@@ -1007,17 +1007,29 @@ function _normalize(str) {
 function _renderArticleBody(content) {
   if (!content) return '';
 
-  // If content already has HTML tags, use as-is (sanitization would go here in v2)
+  // Se já tem HTML, garante que todos os links abram em nova aba
   if (/<[a-z][\s\S]*>/i.test(content)) {
-    return content;
+    return content
+      .replace(/<a\s/gi, '<a target="_blank" rel="noopener noreferrer" ')
+      .replace(/target="_blank"\s+target="_blank"/gi, 'target="_blank"'); // evita duplicação
   }
 
-  // Plain text: split into paragraphs
+  // Texto puro: detecta URLs e transforma em links clicáveis, depois quebra em parágrafos
+  const URL_RE = /https?:\/\/[^\s<>"']+/g;
+
   return content
     .split(/\n\n+|\n/)
     .map(para => para.trim())
     .filter(para => para.length > 0)
-    .map(para => `<p>${_escHtml(para)}</p>`)
+    .map(para => {
+      // Escapa o parágrafo mas preserva URLs como links
+      const escaped = _escHtml(para);
+      const linked = escaped.replace(
+        /https?:\/\/[^\s<>"'&]+/g,
+        url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+      );
+      return `<p>${linked}</p>`;
+    })
     .join('');
 }
 
