@@ -21,6 +21,7 @@ const KEYWORDS = [
   'Brazão',
   'Bontempo',
   'Deivid Washington',
+  'Soteldo',
   'Rollheiser',
   'Willian Arão',
   'Guilherme Augusto',
@@ -160,7 +161,7 @@ const SOURCES = [
     name:              'A Tribuna Santos',
     url:               'https://www.atribuna.com.br/esportes/santos-fc/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -168,7 +169,7 @@ const SOURCES = [
     name:              'Notícias do Peixe',
     url:               'https://noticiasdopeixe.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -176,7 +177,7 @@ const SOURCES = [
     name:              'Santos na Vila',
     url:               'https://santosnavila.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -184,7 +185,7 @@ const SOURCES = [
     name:              'Tudo Sobre Santos',
     url:               'https://www.tudosobresantos.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 
@@ -194,7 +195,7 @@ const SOURCES = [
     name:              'ge.globo Santos',
     url:               'https://ge.globo.com/santos/rss2.xml',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -202,7 +203,7 @@ const SOURCES = [
     name:              'UOL Esporte — Santos',
     url:               'https://esporte.uol.com.br/futebol/campeonatos/brasileiro/serie-a/santos/rss2.xml',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -210,7 +211,7 @@ const SOURCES = [
     name:              'MyTip Santos',
     url:               'https://www.mytipfutebol.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -218,7 +219,7 @@ const SOURCES = [
     name:              'Sambafoot Santos',
     url:               'https://www.sambafoot.com/pt/noticias/rss/santos.xml',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 ];
@@ -467,3 +468,4 @@ function _normalize(str) {
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
 
+      
