@@ -297,7 +297,7 @@ const SOURCES = [
     name:              'Máquina do Esporte',
     url:               'https://maquinadoesporte.com.br/search/santos+futebol/feed/rss2/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
