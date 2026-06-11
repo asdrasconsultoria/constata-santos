@@ -97,7 +97,7 @@ const SOURCES = [
     name:              'Bolavip',
     url:               'https://br.bolavip.com/rss/feed/category/campeonato-brasileirao',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
@@ -227,7 +227,7 @@ const SOURCES = [
     name:              'Placar Santos',
     url:               'https://placar.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -235,7 +235,7 @@ const SOURCES = [
     name:              'Placar',
     url:               'https://placar.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
@@ -243,7 +243,7 @@ const SOURCES = [
     name:              'UmDois Esportes Santos',
     url:               'https://umdoisesportes.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 
@@ -255,7 +255,7 @@ const SOURCES = [
     name:              'O Alvinegro',
     url:               'https://oalvinegro.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -263,7 +263,7 @@ const SOURCES = [
     name:              'Santos Mania',
     url:               'https://santosmania.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -271,7 +271,7 @@ const SOURCES = [
     name:              'Peixe News',
     url:               'https://peixenews.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -279,7 +279,7 @@ const SOURCES = [
     name:              'Vila Online',
     url:               'https://vilaonline.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -287,7 +287,7 @@ const SOURCES = [
     name:              'Alvinegro News',
     url:               'https://alvinegrofc.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 
@@ -313,7 +313,7 @@ const SOURCES = [
     name:              'Tudo de Esportes Santos',
     url:               'https://tudodeesportes.com.br/clube/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -321,7 +321,7 @@ const SOURCES = [
     name:              'Nota do Torcedor Santos',
     url:               'https://notatorcedor.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -329,7 +329,7 @@ const SOURCES = [
     name:              'Só o Futebol Santos',
     url:               'https://soofutebol.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -337,7 +337,7 @@ const SOURCES = [
     name:              'Super Futebol Santos',
     url:               'https://www.superfutebol.com.br/tag/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 
@@ -347,7 +347,7 @@ const SOURCES = [
     name:              'A Tribuna Esportes',
     url:               'https://www.atribuna.com.br/esportes/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
   {
@@ -355,7 +355,7 @@ const SOURCES = [
     name:              'Diário do Litoral',
     url:               'https://www.diariolitoral.com.br/esportes/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: false,
   },
 ];
