@@ -358,6 +358,38 @@ const SOURCES = [
     enabled:           false,
     skipKeywordFilter: false,
   },
+  {
+    id:                'meupeixao',
+    name:              'Meu Peixão',
+    url:               'https://meupeixao.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'ndmais-santos',
+    name:              'ND Mais Santos FC',
+    url:               'https://ndmais.com.br/tag/santos-fc/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'itatiaia-santos',
+    name:              'Rádio Itatiaia Santos',
+    url:               'https://www.itatiaia.com.br/esportes/futebol/futebol-nacional/futebol-paulista/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'folhavitoria-santos',
+    name:              'Folha Vitória Santos FC',
+    url:               'https://www.folhavitoria.com.br/tag/santos-fc/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
