@@ -223,7 +223,77 @@ const SOURCES = [
     skipKeywordFilter: true,
   },
   {
-    id:                'maquina-esporte-santos',
+    id:                'placar-santos',
+    name:              'Placar Santos',
+    url:               'https://placar.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'placar-geral',
+    name:              'Placar',
+    url:               'https://placar.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+  {
+    id:                'umdois-santos',
+    name:              'UmDois Esportes Santos',
+    url:               'https://umdoisesportes.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // ── Novos candidatos — testar e desativar os que falharem ────────────────
+
+  // Blogs WordPress dedicados ao Santos
+  {
+    id:                'oalvinegro',
+    name:              'O Alvinegro',
+    url:               'https://oalvinegro.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'santosmania',
+    name:              'Santos Mania',
+    url:               'https://santosmania.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'peixe-news',
+    name:              'Peixe News',
+    url:               'https://peixenews.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'vilaonline',
+    name:              'Vila Online',
+    url:               'https://vilaonline.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'alvinegro-news',
+    name:              'Alvinegro News',
+    url:               'https://alvinegrofc.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // Portais esportivos gerais — filtrados por keyword
+  {
+    id:                'maquina-esporte',
     name:              'Máquina do Esporte',
     url:               'https://maquinadoesporte.com.br/search/santos+futebol/feed/rss2/',
     category:          'futebol',
@@ -238,6 +308,57 @@ const SOURCES = [
     enabled:           true,
     skipKeywordFilter: true,
   },
+  {
+    id:                'tudodeesportes-santos',
+    name:              'Tudo de Esportes Santos',
+    url:               'https://tudodeesportes.com.br/clube/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'notatorcedor-santos',
+    name:              'Nota do Torcedor Santos',
+    url:               'https://notatorcedor.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'soofutebol-santos',
+    name:              'Só o Futebol Santos',
+    url:               'https://soofutebol.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'superfutebol-santos',
+    name:              'Super Futebol Santos',
+    url:               'https://www.superfutebol.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+
+  // Jornal regional da baixada santista
+  {
+    id:                'atribuna-esportes',
+    name:              'A Tribuna Esportes',
+    url:               'https://www.atribuna.com.br/esportes/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+  {
+    id:                'diario-litoral',
+    name:              'Diário do Litoral',
+    url:               'https://www.diariolitoral.com.br/esportes/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+];
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -483,4 +604,5 @@ function _normalize(str) {
 // ─────────────────────────────────────────────────────────────────────────────
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
 
-      
+
+    
