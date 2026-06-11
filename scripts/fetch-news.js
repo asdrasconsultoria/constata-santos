@@ -222,6 +222,30 @@ const SOURCES = [
     enabled:           false,
     skipKeywordFilter: true,
   },
+  {
+    id:                'placar-santos',
+    name:              'Placar Santos',
+    url:               'https://placar.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
+  {
+    id:                'placar-geral',
+    name:              'Placar',
+    url:               'https://placar.com.br/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: false,
+  },
+  {
+    id:                'umdois-santos',
+    name:              'UmDois Esportes Santos',
+    url:               'https://umdoisesportes.com.br/tag/santos/feed/',
+    category:          'futebol',
+    enabled:           true,
+    skipKeywordFilter: true,
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
