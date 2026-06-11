@@ -387,7 +387,7 @@ const SOURCES = [
     name:              'Folha Vitória Santos FC',
     url:               'https://www.folhavitoria.com.br/tag/santos-fc/feed/',
     category:          'futebol',
-    enabled:           falsee,
+    enabled:           false,
     skipKeywordFilter: true,
   },
 ];
