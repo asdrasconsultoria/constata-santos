@@ -359,7 +359,6 @@ const SOURCES = [
     skipKeywordFilter: false,
   },
 ];
-];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PARSER RSS
@@ -605,4 +604,4 @@ function _normalize(str) {
 main().catch(err => { console.error('FATAL:', err); process.exit(1); });
 
 
-    
+  
