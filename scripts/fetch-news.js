@@ -363,7 +363,7 @@ const SOURCES = [
     name:              'Meu Peixão',
     url:               'https://meupeixao.com.br/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
@@ -379,7 +379,7 @@ const SOURCES = [
     name:              'Rádio Itatiaia Santos',
     url:               'https://www.itatiaia.com.br/esportes/futebol/futebol-nacional/futebol-paulista/santos/feed/',
     category:          'futebol',
-    enabled:           true,
+    enabled:           false,
     skipKeywordFilter: true,
   },
   {
