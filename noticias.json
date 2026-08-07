@@ -1,10 +1,32 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-08-07T12:58:47.125Z",
+    "lastUpdated": "2026-08-07T15:54:06.085Z",
     "totalItems": 50
   },
   "news": [
+    {
+      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
+      "title": "Santos retoma trabalhos e João Ananias valoriza oportunidades de Cuca",
+      "summary": "Santos retoma trabalhos e João Ananias valoriza oportunidades de Cuca O post Santos retoma trabalhos e João Ananias valoriza oportunidades de Cuca apareceu primeiro em Gazeta Esportiva.",
+      "content": "<p>Peixe voltou da folga após classificação da Copa do Brasil e já treina de olho na partida contra o Athletico pelo Brasileirão.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiI4blZ0YzNoSiIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/times/santos/santos-retoma-trabalhos-e-joao-ananias-valoriza-oportunidades-de-cuca/\">Santos retoma trabalhos e João Ananias valoriza oportunidades de Cuca</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
+      "category": "futebol",
+      "source": "Gazeta Esportiva",
+      "sourceUrl": "https://www.gazetaesportiva.com/times/santos/santos-retoma-trabalhos-e-joao-ananias-valoriza-oportunidades-de-cuca/",
+      "image": "https://static.gazetaesportiva.com/uploads/2026/08/Sant.webp",
+      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/08/Sant.webp",
+      "imageAlt": "Santos retoma trabalhos e João Ananias valoriza oportunidades de Cuca",
+      "publishedAt": "2026-08-07T13:11:06.000Z",
+      "featured": false,
+      "relevanceScore": 1,
+      "tags": [
+        "Brasileiro Série A",
+        "Dugout",
+        "Futebol",
+        "Notícias",
+        "Santos"
+      ]
+    },
     {
       "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
       "title": "Palmeiras favorito? Cinco times das quartas da Copa do Brasil brigam contra o Z4 do Brasileiro",
@@ -809,8 +831,8 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Clube do Remo",
-        "Nacional Hard News",
+        "Notícia",
+        "Pará",
         "Neymar"
       ]
     },
@@ -1065,28 +1087,6 @@
         "Santos",
         "Brasileirão Sub-17",
         "cruzeiro"
-      ]
-    },
-    {
-      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
-      "title": "Com foco na Copa do Brasil, Santos ajusta detalhes no CT Rei Pelé antes de viagem para encarar o Remo",
-      "summary": "om o duelo decisivo contra o Remo no horizonte, o Santos realizou, nesta segunda-feira (03), mais uma sessão de treinos no CT Rei Pelé. O técnico aproveitou a atividade para alinhar os últimos detalhes táticos e definir a equipe antes do embarque rumo ao confronto pela Copa do Brasil. O post Com foco na Copa do Brasil,",
-      "content": "<p>Com o duelo decisivo contra o Remo no horizonte, o Santos realizou, nesta segunda-feira (03), mais uma sessão de treinos no CT Rei Pelé. O técnico aproveitou a atividade para alinhar os últimos detalhes táticos e definir a equipe antes do embarque rumo ao confronto pela Copa do Brasil.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiJTU3d4VkZFQiIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/todas-as-noticias/com-foco-na-copa-do-brasil-santos-ajusta-detalhes-no-ct-rei-pele-antes-de-viagem-para-encarar-o-remo/\">Com foco na Copa do Brasil, Santos ajusta detalhes no CT Rei Pelé antes de viagem para encarar o Remo</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
-      "category": "futebol",
-      "source": "Gazeta Esportiva",
-      "sourceUrl": "https://www.gazetaesportiva.com/todas-as-noticias/com-foco-na-copa-do-brasil-santos-ajusta-detalhes-no-ct-rei-pele-antes-de-viagem-para-encarar-o-remo/",
-      "image": "https://static.gazetaesportiva.com/uploads/2026/08/aknz1bgj-1920ajusta-detalhes-no-CT-Rei-Pele.webp",
-      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/08/aknz1bgj-1920ajusta-detalhes-no-CT-Rei-Pele.webp",
-      "imageAlt": "Com foco na Copa do Brasil, Santos ajusta detalhes no CT Rei Pelé antes de viagem para encarar o Remo",
-      "publishedAt": "2026-08-03T22:53:13.000Z",
-      "featured": false,
-      "relevanceScore": 0,
-      "tags": [
-        "Copa do Brasil",
-        "Dugout",
-        "Futebol",
-        "Notícias",
-        "Remo-PA"
       ]
     }
   ]
