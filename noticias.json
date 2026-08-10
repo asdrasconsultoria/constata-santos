@@ -1,10 +1,32 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-08-10T13:03:01.547Z",
+    "lastUpdated": "2026-08-10T14:56:28.391Z",
     "totalItems": 50
   },
   "news": [
+    {
+      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
+      "title": "Poupar ou disputar tudo? Cuca fala sobre calendário e prioridades no Santos",
+      "summary": "Em coletiva de imprensa, o técnico Cuca analisou a intensidade do calendário e defendeu a necessidade do rodízio de atletas para manter o rendimento do time perto dos 100%. O post Poupar ou disputar tudo? Cuca fala sobre calendário e prioridades no Santos apareceu primeiro em Gazeta Esportiva.",
+      "content": "<p>Em coletiva de imprensa, o técnico Cuca analisou a intensidade do calendário e defendeu a necessidade do rodízio de atletas para manter o rendimento do time perto dos 100%.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiJkU0kzalZyeiIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/todas-as-noticias/poupar-ou-disputar-tudo-cuca-fala-sobre-calendario-e-prioridades-no-santos/\">Poupar ou disputar tudo? Cuca fala sobre calendário e prioridades no Santos</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
+      "category": "futebol",
+      "source": "Gazeta Esportiva",
+      "sourceUrl": "https://www.gazetaesportiva.com/todas-as-noticias/poupar-ou-disputar-tudo-cuca-fala-sobre-calendario-e-prioridades-no-santos/",
+      "image": "https://static.gazetaesportiva.com/uploads/2026/05/Cuca-elogia-Neymar.webp",
+      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/05/Cuca-elogia-Neymar.webp",
+      "imageAlt": "Poupar ou disputar tudo? Cuca fala sobre calendário e prioridades no Santos",
+      "publishedAt": "2026-08-10T14:51:14.000Z",
+      "featured": false,
+      "relevanceScore": 1,
+      "tags": [
+        "Athletico-PR",
+        "Brasileiro Série A",
+        "Cuca",
+        "Dugout",
+        "entrevista coletiva"
+      ]
+    },
     {
       "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
       "title": "Semana do Santos conta com jogo da Sul-Americana e viagem ao Rio de Janeiro",
@@ -1000,8 +1022,8 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Clube do Remo",
-        "Nacional Hard News",
+        "Notícia",
+        "Pará",
         "Neymar"
       ]
     },
@@ -1066,28 +1088,6 @@
       "tags": [
         "Fotos",
         "Fotos destaque",
-        "Futebol",
-        "Notícias",
-        "Santos"
-      ]
-    },
-    {
-      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
-      "title": "Bastidores da classificação do Santos em Belém",
-      "summary": "Bastidores da classificação do Santos em Belém O post Bastidores da classificação do Santos em Belém apareceu primeiro em Gazeta Esportiva.",
-      "content": "<p>Confira o melhor dos bastidores da vitória e classificação santista sobre o Remo nas oitavas de final da Copa do Brasil.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiJDTnpiOUFBaSIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/times/santos/bastidores-da-classificacao-do-santos-em-belem/\">Bastidores da classificação do Santos em Belém</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
-      "category": "futebol",
-      "source": "Gazeta Esportiva",
-      "sourceUrl": "https://www.gazetaesportiva.com/times/santos/bastidores-da-classificacao-do-santos-em-belem/",
-      "image": "https://static.gazetaesportiva.com/uploads/2026/08/Basti.webp",
-      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/08/Basti.webp",
-      "imageAlt": "Bastidores da classificação do Santos em Belém",
-      "publishedAt": "2026-08-06T11:35:10.000Z",
-      "featured": false,
-      "relevanceScore": 0,
-      "tags": [
-        "Copa do Brasil",
-        "Dugout",
         "Futebol",
         "Notícias",
         "Santos"
