@@ -1,7 +1,7 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-08-12T01:47:43.048Z",
+    "lastUpdated": "2026-08-12T04:05:42.995Z",
     "totalItems": 50
   },
   "news": [
@@ -153,10 +153,10 @@
       "relevanceScore": 0,
       "tags": [
         "Futebol",
+        "Atlético Mineiro",
         "Brasil",
-        "Notícia",
-        "Grêmio",
-        "Inter"
+        "Copa do Brasil",
+        "Cruzeiro"
       ]
     },
     {
@@ -327,9 +327,9 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Notícia",
+        "Nacional Hard News",
         "Neymar",
-        "Nacional Hard News"
+        "Notícia"
       ]
     },
     {
@@ -348,10 +348,10 @@
       "relevanceScore": 0,
       "tags": [
         "Futebol",
+        "Atlético Mineiro",
         "Brasil",
-        "Notícia",
-        "Grêmio",
-        "Inter"
+        "Cruzeiro",
+        "EC Vitória"
       ]
     },
     {
