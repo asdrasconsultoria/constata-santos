@@ -1,10 +1,32 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-08-14T18:51:12.614Z",
+    "lastUpdated": "2026-08-14T20:28:24.158Z",
     "totalItems": 50
   },
   "news": [
+    {
+      "id": "aHR0cHM6Ly9uZG1haXMuY29tLmJyL2Z1",
+      "title": "Neymar rebate jornalista antes de possível ‘sacrifício’ pelo Santos: ‘Quer que eu jogue’",
+      "summary": "Craque não confirmou se vai atuar contra o Palmeiras, fora de casa, em confronto na Copa do Brasil O post Neymar rebate jornalista antes de possível ‘sacrifício’ pelo Santos: ‘Quer que eu jogue’ apareceu primeiro em ND Mais",
+      "content": "<p>Craque não confirmou se vai atuar contra o Palmeiras, fora de casa, em confronto na Copa do Brasil</p>\n<p>O post <a rel=\"nofollow\" href=\"https://ndmais.com.br/futebol/neymar-rebate-jornalista-antes-possivel-sacrificio-santos/\">Neymar rebate jornalista antes de possível &#8216;sacrifício&#8217; pelo Santos: &#8216;Quer que eu jogue&#8217;</a> apareceu primeiro em <a rel=\"nofollow\" href=\"https://ndmais.com.br\">ND Mais</a></p>\n",
+      "category": "futebol",
+      "source": "ND Mais Santos FC",
+      "sourceUrl": "https://ndmais.com.br/futebol/neymar-rebate-jornalista-antes-possivel-sacrificio-santos/",
+      "image": "https://static.ndmais.com.br/2026/08/neymar-santos-sul-americana-1200x675.jpg",
+      "imageUrl": "https://static.ndmais.com.br/2026/08/neymar-santos-sul-americana-1200x675.jpg",
+      "imageAlt": "Neymar rebate jornalista antes de possível ‘sacrifício’ pelo Santos: ‘Quer que eu jogue’",
+      "publishedAt": "2026-08-14T19:06:58.000Z",
+      "featured": false,
+      "relevanceScore": 0,
+      "tags": [
+        "Futebol",
+        "Brasil",
+        "Notícia",
+        "Neymar",
+        "Nacional Hard News"
+      ]
+    },
     {
       "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
       "title": "CBF detalha tabela das rodadas 25 e 26 do Brasileirão; confira",
@@ -506,9 +528,9 @@
       "tags": [
         "Famosos",
         "Brasil",
-        "Futebol",
-        "Nacional Hard News",
-        "Neymar"
+        "Notícia",
+        "Neymar",
+        "Futebol"
       ]
     },
     {
@@ -1075,28 +1097,6 @@
       "tags": [
         "Extra",
         "Futebol"
-      ]
-    },
-    {
-      "id": "aHR0cHM6Ly9uZG1haXMuY29tLmJyL2Z1",
-      "title": "Copa do Brasil: sorteio define clássicos nas quartas de final; confira o chaveamento",
-      "summary": "Grêmio x Internacional, Cruzeiro x Atlético-MG e Palmeiras x Santos prometem movimentar a sequência da competição O post Copa do Brasil: sorteio define clássicos nas quartas de final; confira o chaveamento apareceu primeiro em ND Mais",
-      "content": "<p>Grêmio x Internacional, Cruzeiro x Atlético-MG e Palmeiras x Santos prometem movimentar a sequência da competição</p>\n<p>O post <a rel=\"nofollow\" href=\"https://ndmais.com.br/futebol/copa-do-brasil-sorteio-classicos-jogos-quartas-de-final/\">Copa do Brasil: sorteio define clássicos nas quartas de final; confira o chaveamento</a> apareceu primeiro em <a rel=\"nofollow\" href=\"https://ndmais.com.br\">ND Mais</a></p>\n",
-      "category": "futebol",
-      "source": "ND Mais Santos FC",
-      "sourceUrl": "https://ndmais.com.br/futebol/copa-do-brasil-sorteio-classicos-jogos-quartas-de-final/",
-      "image": "https://static.ndmais.com.br/2026/08/copa-do-brasil-trofeu-1200x675.jpg",
-      "imageUrl": "https://static.ndmais.com.br/2026/08/copa-do-brasil-trofeu-1200x675.jpg",
-      "imageAlt": "Copa do Brasil: sorteio define clássicos nas quartas de final; confira o chaveamento",
-      "publishedAt": "2026-08-11T14:21:10.000Z",
-      "featured": false,
-      "relevanceScore": 0,
-      "tags": [
-        "Futebol",
-        "Brasil",
-        "Notícia",
-        "Grêmio",
-        "Inter"
       ]
     }
   ]
