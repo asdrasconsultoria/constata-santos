@@ -1,7 +1,7 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-08-17T04:39:15.603Z",
+    "lastUpdated": "2026-08-17T06:51:23.795Z",
     "totalItems": 50
   },
   "news": [
@@ -567,9 +567,9 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Notícia",
-        "Neymar",
-        "Nacional Hard News"
+        "Copa do Brasil",
+        "Nacional Hard News",
+        "Neymar"
       ]
     },
     {
@@ -1095,9 +1095,9 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Notícia",
+        "Copa Sul-Americana",
         "Neymar",
-        "Serviço"
+        "Notícia"
       ]
     }
   ]
