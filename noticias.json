@@ -1,10 +1,32 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-09-03T10:41:36.882Z",
+    "lastUpdated": "2026-09-03T14:52:03.636Z",
     "totalItems": 50
   },
   "news": [
+    {
+      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
+      "title": "Cuca após lesão de Neymar: “Vamos ter que nos virar sem ele”",
+      "summary": "Cuca após lesão de Neymar: \"Vamos ter que nos virar sem ele\" O post Cuca após lesão de Neymar: “Vamos ter que nos virar sem ele” apareceu primeiro em Gazeta Esportiva.",
+      "content": "<p>Treinador comenta nova lesão do craque depois do empate sem gols com o Palmeiras, na despedida do Santos da Copa do Brasil.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiJkUGdFWjdXZCIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/times/santos/cuca-apos-lesao-de-neymar-vamos-ter-que-nos-virar-sem-ele/\">Cuca após lesão de Neymar: &#8220;Vamos ter que nos virar sem ele&#8221;</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
+      "category": "futebol",
+      "source": "Gazeta Esportiva",
+      "sourceUrl": "https://www.gazetaesportiva.com/times/santos/cuca-apos-lesao-de-neymar-vamos-ter-que-nos-virar-sem-ele/",
+      "image": "https://static.gazetaesportiva.com/uploads/2026/08/z0c5wlsp-1920cuca.webp",
+      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/08/z0c5wlsp-1920cuca.webp",
+      "imageAlt": "Cuca após lesão de Neymar: “Vamos ter que nos virar sem ele”",
+      "publishedAt": "2026-09-03T13:40:01.000Z",
+      "featured": false,
+      "relevanceScore": 1,
+      "tags": [
+        "Copa do Brasil",
+        "Dugout",
+        "Futebol",
+        "Notícias",
+        "Santos"
+      ]
+    },
     {
       "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
       "title": "Atuações: Oliva se destaca, mas setor ofensivo do Santos decepciona contra o Palmeiras",
@@ -761,9 +783,9 @@
       "tags": [
         "Futebol",
         "Brasil",
+        "Copa do Brasil",
         "Notícia",
-        "Serviço",
-        "Copa do Brasil"
+        "Santos FC"
       ]
     },
     {
@@ -1064,28 +1086,6 @@
         "Notícias do Santos",
         "Emerson Palmieri",
         "Santos"
-      ]
-    },
-    {
-      "id": "aHR0cHM6Ly9uZG1haXMuY29tLmJyL2Z1",
-      "title": "Ex-jogador do Santos se manifesta após ser citado junto de David, do Vasco, em investigação policial: ‘Associação irresponsável’",
-      "summary": "Atacante, que está atualmente no Azuriz, agradeceu o apoio de familiares e amigos em meio ao equívoco O post Ex-jogador do Santos se manifesta após ser citado junto de David, do Vasco, em investigação policial: ‘Associação irresponsável’ apareceu primeiro em ND Mais",
-      "content": "<p>Atacante, que está atualmente no Azuriz, agradeceu o apoio de familiares e amigos em meio ao equívoco</p>\n<p>O post <a rel=\"nofollow\" href=\"https://ndmais.com.br/futebol/ex-jogador-do-santos-se-manifesta-apos-ser-citado-junto-david-vasco-investigacao-policial/\">Ex-jogador do Santos se manifesta após ser citado junto de David, do Vasco, em investigação policial: &#8216;Associação irresponsável&#8217;</a> apareceu primeiro em <a rel=\"nofollow\" href=\"https://ndmais.com.br\">ND Mais</a></p>\n",
-      "category": "futebol",
-      "source": "ND Mais Santos FC",
-      "sourceUrl": "https://ndmais.com.br/futebol/ex-jogador-do-santos-se-manifesta-apos-ser-citado-junto-david-vasco-investigacao-policial/",
-      "image": "https://static.ndmais.com.br/2026/08/renyer-ex-santos-1200x675.jpg",
-      "imageUrl": "https://static.ndmais.com.br/2026/08/renyer-ex-santos-1200x675.jpg",
-      "imageAlt": "Ex-jogador do Santos se manifesta após ser citado junto de David, do Vasco, em investigação policial: ‘Associação irresponsável’",
-      "publishedAt": "2026-08-31T21:19:44.000Z",
-      "featured": false,
-      "relevanceScore": 0,
-      "tags": [
-        "Futebol",
-        "Brasil",
-        "Nacional Hard News",
-        "Notícia",
-        "Santos FC"
       ]
     }
   ]
