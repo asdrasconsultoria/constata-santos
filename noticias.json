@@ -1,10 +1,32 @@
 {
   "meta": {
     "club": "santos",
-    "lastUpdated": "2026-09-12T16:45:24.878Z",
+    "lastUpdated": "2026-09-12T18:56:59.311Z",
     "totalItems": 50
   },
   "news": [
+    {
+      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
+      "title": "Com Cebolinha, Santos está pronto para confronto contra o Cruzeiro",
+      "summary": "Com Cebolinha, Santos está pronto para confronto contra o Cruzeiro O post Com Cebolinha, Santos está pronto para confronto contra o Cruzeiro apareceu primeiro em Gazeta Esportiva.",
+      "content": "<p>Com mais reforços à disposição, Peixe recebe o time mineiro na Vila Belmiro pelo returno do Campeonato Brasileiro.</p>\n<div class=\"dugout-video dugout-embed-eyJrZXkiOiJGdGtPT0VMWSIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\"></div>\n<p><script type=\"text/javascript\" src=\"https://embed.onefootball.com/inline/gazetaesportiva.js\"></script></p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/times/santos/com-cebolinha-santos-esta-pronto-para-confronto-contra-o-cruzeiro/\">Com Cebolinha, Santos está pronto para confronto contra o Cruzeiro</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
+      "category": "futebol",
+      "source": "Gazeta Esportiva",
+      "sourceUrl": "https://www.gazetaesportiva.com/times/santos/com-cebolinha-santos-esta-pronto-para-confronto-contra-o-cruzeiro/",
+      "image": "https://static.gazetaesportiva.com/uploads/2026/09/55522637884_fc3c5f20cf_3k.webp",
+      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/09/55522637884_fc3c5f20cf_3k.webp",
+      "imageAlt": "Com Cebolinha, Santos está pronto para confronto contra o Cruzeiro",
+      "publishedAt": "2026-09-12T16:57:07.000Z",
+      "featured": false,
+      "relevanceScore": 0,
+      "tags": [
+        "Brasileiro Série A",
+        "Dugout",
+        "Futebol",
+        "Notícias",
+        "Santos"
+      ]
+    },
     {
       "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
       "title": "Neymar se antecipa ao Santos e confirma chegada de Coutinho: “Não quero acordar”",
@@ -239,9 +261,9 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Notícia",
+        "Nacional Hard News",
         "Neymar",
-        "Nacional Hard News"
+        "Notícia"
       ]
     },
     {
@@ -368,9 +390,9 @@
       "tags": [
         "Futebol",
         "Brasil",
-        "Notícia",
-        "Nacional Hard News",
-        "Corinthians"
+        "Corinthians",
+        "Cruzeiro",
+        "Flamengo"
       ]
     },
     {
@@ -1072,28 +1094,6 @@
         "Dugout",
         "Santos",
         "santos"
-      ]
-    },
-    {
-      "id": "aHR0cHM6Ly93d3cuZ2F6ZXRhZXNwb3J0",
-      "title": "Veja o gol de Willian Arão na vitória do Santos contra o Atlético-MG pela Sul-Americana",
-      "summary": "Willian Arão recebe de Gabriel Barbosa e marca para o Santos na Vila Belmiro. O post Veja o gol de Willian Arão na vitória do Santos contra o Atlético-MG pela Sul-Americana apareceu primeiro em Gazeta Esportiva.",
-      "content": "<p>Willian Arão recebe de Gabriel Barbosa e marca para o Santos na Vila Belmiro.</p>\n<div style=\"margin: 0 auto; min-width: 300px;\">\n<div style=\"position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;\"><iframe style=\"width: 300px; min-width: 100%; position: absolute; top: 0; left: 0; height: 100%; overflow: hidden;\" src=\"https://embed.onefootball.com/iframe/?p=eyJrZXkiOiI5eWZZZUtXNiIsInAiOiJnYXpldGFlc3BvcnRpdmEiLCJwbCI6IiJ9\" width=\"100%\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe></div>\n</div>\n<p>&nbsp;</p>\n<p>O post <a href=\"https://www.gazetaesportiva.com/times/santos/veja-o-gol-de-willian-arao-na-vitoria-do-santos-contra-o-atletico-mg-pela-sul-americana/\">Veja o gol de Willian Arão na vitória do Santos contra o Atlético-MG pela Sul-Americana</a> apareceu primeiro em <a href=\"https://www.gazetaesportiva.com\">Gazeta Esportiva</a>.</p>\n",
-      "category": "futebol",
-      "source": "Gazeta Esportiva",
-      "sourceUrl": "https://www.gazetaesportiva.com/times/santos/veja-o-gol-de-willian-arao-na-vitoria-do-santos-contra-o-atletico-mg-pela-sul-americana/",
-      "image": "https://static.gazetaesportiva.com/uploads/2026/09/AFP__20260909__C7UP64R__v1__HighRes__FblSudamericanaSantosMineiro.webp",
-      "imageUrl": "https://static.gazetaesportiva.com/uploads/2026/09/AFP__20260909__C7UP64R__v1__HighRes__FblSudamericanaSantosMineiro.webp",
-      "imageAlt": "Veja o gol de Willian Arão na vitória do Santos contra o Atlético-MG pela Sul-Americana",
-      "publishedAt": "2026-09-10T02:53:51.000Z",
-      "featured": false,
-      "relevanceScore": 2,
-      "tags": [
-        "Atlético-MG",
-        "Copa Sul-Americana",
-        "Dugout",
-        "Futebol",
-        "Santos"
       ]
     }
   ]
